@@ -5,3 +5,7 @@
 ## Links
 
 https://dashboard.trinsic.id/ecosystem
+
+https://github.com/trinsic-id/sdk
+
+https://docs.trinsic.id/dotnet/

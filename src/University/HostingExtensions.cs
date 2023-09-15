@@ -18,6 +18,11 @@ internal static class HostingExtensions
         services.Configure<TrinsicOptions>(options => 
             configuration.Bind(TrinsicOptions.Trinsic, options));
 
+        services.AddTrinsic(options =>
+        {
+            options.AuthToken = configuration["TrinsicOptions:ApiKey"];
+        });
+
         services.AddDistributedMemoryCache();
 
         services.AddMicrosoftIdentityWebAppAuthentication(configuration)
