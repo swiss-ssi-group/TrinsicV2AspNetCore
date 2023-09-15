@@ -5,9 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "University", "src\University\University.csproj", "{C73D60D5-7FFF-4C12-8D9B-7EDCD0A0A60B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1997A71F-9E21-4DF5-881E-1D04483D7A7D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_solutionItems", "_solutionItems", "{1997A71F-9E21-4DF5-881E-1D04483D7A7D}"
 	ProjectSection(SolutionItems) = preProject
-		..\README.md = ..\README.md
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
