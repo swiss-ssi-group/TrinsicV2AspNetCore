@@ -1,7 +1,10 @@
+using System.Globalization;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Trinsic;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
+using Trinsic.Services.VerifiableCredentials.V1;
 
 namespace University.Pages;
 
@@ -34,11 +37,29 @@ public class IssueDiplomaModel : PageModel
                 Id = "urn:template:peaceful-booth-zrpufxfp6l3c:diploma-credential-for-swiss-self-sovereign-identity-ssi"
             });
 
+        var diploma = new Diploma
+        {
+            FirstName = "Damien",
+            LastName = "Bod",
+            DateOfBirth = "1998-05-23",
+            DiplomaTitle = "Swiss SSI FH",
+            DiplomaSpecialisation = "governance",
+            DiplomaIssuedDate = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+        };
+
+        var response = await _trinsicService.Credential.CreateCredentialOfferAsync(
+            new CreateCredentialOfferRequest
+            {
+                TemplateId = templateResponse.Template.Id,
+                ValuesJson = JsonSerializer.Serialize(diploma),
+                GenerateShareUrl = true 
+            });
+
         //var credentialJson = await _trinsicService.Credential
-        //    .IssueFromTemplateAsync(new()
+        //    .IssueFromTemplateAsync(new IssueFromTemplateRequest
         //    {
         //        TemplateId = templateResponse.Template.Id,
-        //        ValuesJson = values
+        //        ValuesJson = JsonSerializer.Serialize(diploma),
         //    });
     }
 }
