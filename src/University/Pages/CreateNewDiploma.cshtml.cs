@@ -26,30 +26,38 @@ public class CreateNewDiplomaModel : PageModel
     {
         CreateCredentialTemplateRequest createRequest = new()
         {
-            Name = "An Example Credential",
-            Title = "Example Credential",
-            Description = "A credential for Trinsic's SDK samples",
+            Name = "Diploma Credential for Swiss Self Sovereign Identity SSI",
+            Title = "Diploma SSI degree",
+            Description = "A University Diploma Credential for Swiss Self Sovereign Identity SSI",
             AllowAdditionalFields = false,
             Fields =
             {
-                { "firstName", new() { Title = "First Name", Description = "Given name of holder" } },
-                { "lastName", new() { Title = "Last Name", Description = "Surname of holder", Optional = true } },
-                { "age", new() { Title = "Age", Description = "Age in years of holder", Type = FieldType.Number } }
+                { "firstName", new() { Title = "First Name", Description = "first name" } },
+                { "lastName", new() { Title = "Last Name", Description = "Surname" } },
+                { "dateOfBirth", new() { Title = "Date of Birth", Description = "Date of birth" } },
+                { "diplomaTitle", new() { Title = "Title of Diploma", Description = "Title of Diploma" } },
+                { "diplomaSpecialisation", new() { Title = "Specialisation", Description = "Specialisation", Optional=true } },
+                { "diplomaIssuedDate", new() { Title = "Diploma issued date", Description = "date when diploma was issued, or awrded" } },
+                
             },
-                    FieldOrdering =
+            FieldOrdering =
             {
                 { "firstName", new() { Order = 0, Section = "Name" } },
                 { "lastName", new() { Order = 1, Section = "Name" } },
-                { "age", new() { Order = 2, Section = "Miscellanous" } }
+                { "dateOfBirth", new() { Order = 2, Section = "Name" } },
+                { "diplomaTitle", new() { Order = 3, Section = "Diploma" } },
+                { "diplomaSpecialisation", new() { Order = 4, Section = "Diploma" } },
+                { "diplomaIssuedDate", new() { Order = 5, Section = "Diploma" } }
             },
             AppleWalletOptions = new()
             {
                 PrimaryField = "firstName",
-                SecondaryFields = { "lastName" },
-                AuxiliaryFields = { "age" }
+                SecondaryFields = { "lastName", "dateOfBirth"},
+                AuxiliaryFields = {  "diplomaTitle", "diplomaIssuedDate" }
             }
         };
 
+        // TODO save id in a database for later usage
         var template = await _trinsicService.Template
             .CreateAsync(createRequest);
     }
