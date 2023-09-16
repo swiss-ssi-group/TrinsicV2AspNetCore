@@ -17,6 +17,8 @@ public class IssueDiplomaModel : PageModel
 {
     private readonly TrinsicService _trinsicService;
 
+    public string CredentialOfferUrl { get; set; } = string.Empty;
+
     public IssueDiplomaModel(TrinsicService trinsicService)
     {
         _trinsicService = trinsicService;
@@ -55,6 +57,7 @@ public class IssueDiplomaModel : PageModel
                 GenerateShareUrl = true 
             });
 
+        CredentialOfferUrl = response.ShareUrl;
         //var credentialJson = await _trinsicService.Credential
         //    .IssueFromTemplateAsync(new IssueFromTemplateRequest
         //    {

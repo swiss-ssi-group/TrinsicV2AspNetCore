@@ -7,3 +7,31 @@
 
     <button type="submit" class="btn btn-primary col-sm-10">Issue a diploma</button>
 </form>
+
+<br />
+<br />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm">
+            <div class="qr" id="qrCode"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/qrcode.min.js"></script>
+    <script type="text/javascript">
+            new QRCode(document.getElementById("qrCode"),
+                {
+                    text: "@Html.Raw(Model.CredentialOfferUrl)",
+                    width: 300,
+                    height: 300
+                });
+
+        $(document).ready(() => {
+            document.getElementById('begin_token_check').click();
+        });
+
+    </script>
+}
