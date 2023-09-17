@@ -26,7 +26,7 @@ In a second phase, the trusted registry will be used and implemnted.
 - Does OIDC even work with Trinsic?
 - Wallets from other providers do not work
 - Trinsic wallet does not work
-- Platform documentation do not match the APIs
+- Platform documentation do not match the APIs (options.AuthToken = configuration["TrinsicOptions:ApiKey"];)
 - No clear docs how to implement this basic flow using OIDC
 - Weak user authentication
 
