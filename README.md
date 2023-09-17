@@ -19,7 +19,7 @@ As an HR employee, I want to verify the job candidate has a degree from this uni
 
 Validate that the flow can be implemented used this ID-Tech
 
-In a second phase, the trusted registry will be used and implemnted.
+In a second phase, the trusted registry will be used and implemented.
 
 ## Notes
 
