@@ -32,6 +32,13 @@ public class IssueDiplomaModel : PageModel
     {
         // TODO get id from a database
 
+        // Does OIDC even work with Trinsic?
+        // Wallets from other providers do not work
+        // Trinsic wallet does not work
+        // Platform documentation do not match the APIs
+        // No clear docs how to implement this basic flow using OIDC
+        // Weak user authentication
+
         // Get template to validate that it exists
         var templateResponse = await _trinsicService.Template
             .GetAsync(new GetCredentialTemplateRequest
