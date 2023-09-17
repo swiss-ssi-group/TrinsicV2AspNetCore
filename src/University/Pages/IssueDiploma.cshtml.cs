@@ -58,11 +58,14 @@ public class IssueDiplomaModel : PageModel
             });
 
         CredentialOfferUrl = response.ShareUrl;
+
         //var credentialJson = await _trinsicService.Credential
         //    .IssueFromTemplateAsync(new IssueFromTemplateRequest
         //    {
         //        TemplateId = templateResponse.Template.Id,
         //        ValuesJson = JsonSerializer.Serialize(diploma),
         //    });
+
+        //Console.WriteLine(credentialJson.ToString());
     }
 }
