@@ -14,6 +14,7 @@ As an HR employee, I want to verify the job candidate has a degree from this uni
 - The credentials will be issued using OIDC to a candidate mobile wallet.
 - The Issuer uses a trust registry so that the verifier can validate that the VC is authentic.
 - The verifier will use BBS+ selective disclosure to validate a diploma.
+- The University application requires an admin zone and a student zone.
 
 ## PoC
 
