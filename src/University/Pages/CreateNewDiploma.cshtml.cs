@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Trinsic;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
