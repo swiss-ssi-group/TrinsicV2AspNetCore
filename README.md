@@ -18,7 +18,9 @@ As an HR employee, I want to verify the job candidate has a degree from this uni
 
 ## PoC
 
-Validate that the flow can be implemented used this ID-Tech
+Validate that the flow can be implemented using this trinsic.id ID-Tech platform
+
+Provide a .NET Core example
 
 In a second phase, the trusted registry will be used and implemented.
 
