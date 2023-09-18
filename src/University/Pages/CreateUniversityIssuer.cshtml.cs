@@ -28,7 +28,7 @@ public class CreateUniversityIssuerModel : PageModel
     {
         var request = new CreateWalletRequest
         {
-            EcosystemId = _configuration["TrinsicOptions:ApiKey"],
+            EcosystemId = _configuration["TrinsicOptions:Ecosystem"],
             Description = "wallet to issue university diplomas"
         };
 

@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Trinsic;
 using Trinsic.Services.UniversalWallet.V1;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
@@ -17,12 +18,14 @@ namespace University.Pages;
 public class IssueDiplomaModel : PageModel
 {
     private readonly TrinsicService _trinsicService;
+    private readonly IConfiguration _configuration;
 
     public string CredentialOfferUrl { get; set; } = string.Empty;
 
-    public IssueDiplomaModel(TrinsicService trinsicService)
+    public IssueDiplomaModel(TrinsicService trinsicService, IConfiguration configuration)
     {
         _trinsicService = trinsicService;
+        _configuration = configuration;
     }
 
     public void Get()
@@ -56,6 +59,9 @@ public class IssueDiplomaModel : PageModel
             DiplomaSpecialisation = "governance",
             DiplomaIssuedDate = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
         };
+
+        // University issuer
+        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
 
         var response = await _trinsicService.Credential.CreateCredentialOfferAsync(
             new CreateCredentialOfferRequest
