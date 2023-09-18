@@ -21,7 +21,7 @@ internal static class HostingExtensions
         services.AddTrinsic(options =>
         {
             // The auth token is the issuer, not the provider
-            options.AuthToken = configuration["TrinsicOptions:ApiKey"];
+            options.AuthToken = configuration["TrinsicOptions:ApiKey"]; // "TrinsicOptions:IssuerAuthToken" 
         });
 
         services.AddDistributedMemoryCache();
