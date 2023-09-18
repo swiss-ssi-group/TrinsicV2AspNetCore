@@ -47,6 +47,24 @@ var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(reques
 var test = createWalletResponse.AuthToken;
 ```
 
+or this:
+
+```
+var request = new CreateWalletRequest
+{
+    EcosystemId = "--your eco system id--",
+    Description = "wallet to issue university diplomas",
+    Identity = new CreateWalletRequest.Types.ExternalIdentity
+    {
+        Identity = "--email of identity--",
+        Provider = Trinsic.Services.Provider.V1.IdentityProvider.Email
+    }
+};
+var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(request);
+
+var authToken = createWalletResponse.AuthToken;
+```
+
 ## Links
 
 https://dashboard.trinsic.id/ecosystem

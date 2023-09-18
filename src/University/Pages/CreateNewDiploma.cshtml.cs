@@ -47,7 +47,7 @@ public class CreateNewDiplomaModel : PageModel
                 { "diplomaTitle", new() { Order = 3, Section = "Diploma" } },
                 { "diplomaSpecialisation", new() { Order = 4, Section = "Diploma" } },
                 { "diplomaIssuedDate", new() { Order = 5, Section = "Diploma" } }
-            },
+            }, 
             AppleWalletOptions = new()
             {
                 PrimaryField = "firstName",
