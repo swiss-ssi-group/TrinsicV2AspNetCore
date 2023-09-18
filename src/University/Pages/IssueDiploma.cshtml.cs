@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Trinsic;
+using Trinsic.Services.UniversalWallet.V1;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
 using Trinsic.Services.VerifiableCredentials.V1;
 
@@ -25,7 +26,7 @@ public class IssueDiplomaModel : PageModel
     }
 
     public void Get()
-    {    
+    {
     }
 
     public async Task OnPostAsync()

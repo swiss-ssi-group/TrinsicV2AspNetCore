@@ -33,6 +33,20 @@ In a second phase, the trusted registry will be used and implemented.
 - No clear docs how to implement this basic flow using OIDC
 - Weak user authentication
 
+## Create Issuer Wallet
+
+```
+var request = new CreateWalletRequest
+{
+    EcosystemId = "--your eco system id--",
+    Description = "wallet to issue university diplomas"
+};
+
+var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(request);
+
+var test = createWalletResponse.AuthToken;
+```
+
 ## Links
 
 https://dashboard.trinsic.id/ecosystem
