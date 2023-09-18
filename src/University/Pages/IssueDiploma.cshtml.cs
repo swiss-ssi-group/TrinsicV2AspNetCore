@@ -11,6 +11,7 @@ namespace University.Pages;
 /// Create Credential Template for a new universaty diploma
 /// https://docs.trinsic.id/reference/services/template-service/
 /// https://docs.trinsic.id/reference/services/credential-service/
+/// https://docs.trinsic.id/guide/issuance/
 /// </summary>
 public class IssueDiplomaModel : PageModel
 {
