@@ -11,10 +11,12 @@ namespace University.Pages;
 public class CreateNewDiplomaModel : PageModel
 {
     private readonly TrinsicService _trinsicService;
+    private readonly IConfiguration _configuration;
 
-    public CreateNewDiplomaModel(TrinsicService trinsicService)
+    public CreateNewDiplomaModel(TrinsicService trinsicService, IConfiguration configuration)
     {
         _trinsicService = trinsicService;
+        _configuration = configuration;
     }
 
     public void OnGet()
@@ -55,6 +57,8 @@ public class CreateNewDiplomaModel : PageModel
                 AuxiliaryFields = {  "diplomaTitle", "diplomaIssuedDate" }
             }
         };
+
+        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
 
         // TODO save id in a database for later usage
         var template = await _trinsicService.Template
