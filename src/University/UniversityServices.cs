@@ -83,13 +83,10 @@ public class UniversityServices
         return template;
     }
 
-    public async Task<CreateWalletResponse?> CreateUniversityWalletToIssueDiplomas()
+    public async Task<CreateWalletResponse?> CreateUniversityWalletToIssueDiplomas(CreateWalletRequest request)
     {
-        var request = new CreateWalletRequest
-        {
-            EcosystemId = _configuration["TrinsicOptions:Ecosystem"],
-            Description = "wallet to issue university diplomas"
-        };
+        // Auth token from trinsic.id root API KEY provider
+        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
 
         var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(request);
 

@@ -32,7 +32,14 @@ public class CreateUniversityIssuerModel : PageModel
 
     public async Task OnPostAsync()
     {
-        var createWalletResponse = await _universityServices.CreateUniversityWalletToIssueDiplomas();
+        var request = new CreateWalletRequest
+        {
+            EcosystemId = _configuration["TrinsicOptions:Ecosystem"],
+            Description = "wallet to issue university diplomas"
+        };
+
+        var createWalletResponse = await _universityServices
+            .CreateUniversityWalletToIssueDiplomas(request);
 
         // This authToken and walletId is required to issue credentials
         AuthToken = createWalletResponse!.AuthToken;
