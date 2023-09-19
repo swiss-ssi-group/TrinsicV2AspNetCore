@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Trinsic;
-using Trinsic.Services.TrustRegistry.V1;
 using Trinsic.Services.UniversalWallet.V1;
 
 namespace University.Pages;
@@ -13,9 +12,16 @@ public class CreateUniversityIssuerModel : PageModel
 {
     private readonly TrinsicService _trinsicService;
     private readonly IConfiguration _configuration;
+    private readonly UniversityServices _universityServices;
 
-    public CreateUniversityIssuerModel(TrinsicService trinsicService, IConfiguration configuration)
+    public string WalletId { get; set; } = string.Empty;
+    public string AuthToken { get; set; } = string.Empty;
+
+    public CreateUniversityIssuerModel(TrinsicService trinsicService,
+        UniversityServices universityServices,
+        IConfiguration configuration)
     {
+        _universityServices = universityServices;
         _trinsicService = trinsicService;
         _configuration = configuration;
     }
@@ -34,21 +40,15 @@ public class CreateUniversityIssuerModel : PageModel
 
         var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(request);
 
-        var authToken = createWalletResponse.AuthToken;
+        // This authToken and walletId is required to issue credentials
+        AuthToken = createWalletResponse.AuthToken;
+        WalletId = createWalletResponse.Wallet.WalletId;
 
-        await RegisterIssuer(createWalletResponse.Wallet.WalletId,
-            createWalletResponse.Wallet.Name);
-    }
+        // Get template to validate that it exists
+        var credentialTemplate = await _universityServices.GetUniversityDiplomaTemplate(
+            _universityServices.GetUniversityDiplomaTemplateId());
 
-    private async Task<RegisterMemberResponse> RegisterIssuer(string walletId, string schemaUri)
-    {
-        // original API 
-        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
-
-        return await _trinsicService.TrustRegistry.RegisterMemberAsync(new()
-        {
-            WalletId = walletId,
-            SchemaUri = schemaUri,
-        });
-    }
+        await _universityServices.RegisterIssuer(WalletId,
+            credentialTemplate.Template.SchemaUri);
+    }   
 }

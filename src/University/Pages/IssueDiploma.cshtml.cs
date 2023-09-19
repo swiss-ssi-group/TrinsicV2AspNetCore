@@ -1,9 +1,7 @@
 using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Configuration;
 using Trinsic;
-using Trinsic.Services.UniversalWallet.V1;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
 using Trinsic.Services.VerifiableCredentials.V1;
 
@@ -17,13 +15,17 @@ namespace University.Pages;
 /// </summary>
 public class IssueDiplomaModel : PageModel
 {
+    private readonly UniversityServices _universityServices;
     private readonly TrinsicService _trinsicService;
     private readonly IConfiguration _configuration;
 
     public string CredentialOfferUrl { get; set; } = string.Empty;
 
-    public IssueDiplomaModel(TrinsicService trinsicService, IConfiguration configuration)
+    public IssueDiplomaModel(TrinsicService trinsicService,
+        UniversityServices universityServices,
+        IConfiguration configuration)
     {
+        _universityServices = universityServices;
         _trinsicService = trinsicService;
         _configuration = configuration;
     }
@@ -44,11 +46,8 @@ public class IssueDiplomaModel : PageModel
         // Weak user authentication
 
         // Get template to validate that it exists
-        var templateResponse = await _trinsicService.Template
-            .GetAsync(new GetCredentialTemplateRequest
-            {
-                Id = "urn:template:peaceful-booth-zrpufxfp6l3c:diploma-credential-for-swiss-self-sovereign-identity-ssi"
-            });
+        var templateResponse = await _universityServices.GetUniversityDiplomaTemplate(
+            _universityServices.GetUniversityDiplomaTemplateId());
 
         var diploma = new Diploma
         {

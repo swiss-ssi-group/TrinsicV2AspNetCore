@@ -24,6 +24,8 @@ internal static class HostingExtensions
             options.AuthToken = configuration["TrinsicOptions:IssuerAuthToken"]; 
         });
 
+        services.AddScoped<UniversityServices>();
+
         services.AddDistributedMemoryCache();
 
         services.AddMicrosoftIdentityWebAppAuthentication(configuration)
