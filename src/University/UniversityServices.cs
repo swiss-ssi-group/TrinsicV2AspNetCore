@@ -69,4 +69,15 @@ public class UniversityServices
 
         return response;
     }
+
+    public async Task<CreateCredentialTemplateResponse> CreateDiplomaTemplate(CreateCredentialTemplateRequest diplomaTemplate)
+    {
+        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
+
+        // TODO save id in a database for later usage
+        var template = await _trinsicService.Template
+            .CreateAsync(diplomaTemplate);
+
+        return template;
+    }
 }

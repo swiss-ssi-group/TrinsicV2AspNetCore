@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Trinsic;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
 
 namespace University.Pages;
@@ -10,13 +9,11 @@ namespace University.Pages;
 /// </summary>
 public class CreateNewDiplomaModel : PageModel
 {
-    private readonly TrinsicService _trinsicService;
-    private readonly IConfiguration _configuration;
+    private readonly UniversityServices _universityServices;
 
-    public CreateNewDiplomaModel(TrinsicService trinsicService, IConfiguration configuration)
+    public CreateNewDiplomaModel(UniversityServices universityServices)
     {
-        _trinsicService = trinsicService;
-        _configuration = configuration;
+        _universityServices = universityServices;
     }
 
     public void OnGet()
@@ -58,10 +55,6 @@ public class CreateNewDiplomaModel : PageModel
             }
         };
 
-        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
-
-        // TODO save id in a database for later usage
-        var template = await _trinsicService.Template
-            .CreateAsync(createRequest);
+        await _universityServices.CreateDiplomaTemplate(createRequest);
     }
 }
