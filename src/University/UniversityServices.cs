@@ -25,6 +25,9 @@ public class UniversityServices
 
     public async Task<GetCredentialTemplateResponse>  GetUniversityDiplomaTemplate(string universityTemplateId)
     {
+        // original API 
+        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
+
         var templateResponse = await _trinsicService.Template
             .GetAsync(new GetCredentialTemplateRequest
             {

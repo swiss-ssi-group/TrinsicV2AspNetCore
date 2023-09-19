@@ -7,6 +7,6 @@ public class TrinsicOptions
   public string Ecosystem { get; set; } = default!;
   public string ApiKey { get; set; } = default!;
   public string IssuerAuthToken { get; set; } = default!;
-  public string IssuerWalletTokenId { get; set; } = default!;  
+  public string IssuerWalletId { get; set; } = default!;  
 }
 
