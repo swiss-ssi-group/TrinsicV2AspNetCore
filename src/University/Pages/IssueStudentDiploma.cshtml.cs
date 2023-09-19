@@ -10,13 +10,13 @@ namespace University.Pages;
 /// https://docs.trinsic.id/reference/services/credential-service/
 /// https://docs.trinsic.id/guide/issuance/
 /// </summary>
-public class IssueDiplomaModel : PageModel
+public class IssueStudentDiplomaModel : PageModel
 {
     private readonly UniversityServices _universityServices;
 
     public string CredentialOfferUrl { get; set; } = string.Empty;
 
-    public IssueDiplomaModel(UniversityServices universityServices)
+    public IssueStudentDiplomaModel(UniversityServices universityServices)
     {
         _universityServices = universityServices;
     }

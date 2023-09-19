@@ -57,6 +57,7 @@ public class CreateNewDiplomaModel : PageModel
 
         var createdTemplate = await _universityServices.CreateDiplomaTemplate(createRequest);
 
+        // We need to allow the univeristy wallet to issue the VCs using this template
         await _universityServices.RegisterIssuer(createdTemplate.Data.SchemaUri);
     }
 }
