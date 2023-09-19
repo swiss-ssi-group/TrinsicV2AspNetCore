@@ -42,14 +42,8 @@ public class CreateUniversityIssuerModel : PageModel
             .CreateUniversityWalletToIssueDiplomas(request);
 
         // This authToken and walletId is required to issue credentials
+        // Add this to the DB, user secrets or key vault
         AuthToken = createWalletResponse!.AuthToken;
         WalletId = createWalletResponse!.Wallet.WalletId;
-
-        // Get template to validate that it exists
-        var credentialTemplate = await _universityServices.GetUniversityDiplomaTemplate(
-            _universityServices.GetUniversityDiplomaTemplateId());
-
-        await _universityServices.RegisterIssuer(WalletId,
-            credentialTemplate.Template.SchemaUri);
     }   
 }

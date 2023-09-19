@@ -55,6 +55,8 @@ public class CreateNewDiplomaModel : PageModel
             }
         };
 
-        await _universityServices.CreateDiplomaTemplate(createRequest);
+        var createdTemplate = await _universityServices.CreateDiplomaTemplate(createRequest);
+
+        await _universityServices.RegisterIssuer(createdTemplate.Data.SchemaUri);
     }
 }

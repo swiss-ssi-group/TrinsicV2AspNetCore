@@ -39,21 +39,25 @@ public class UniversityServices
         return templateResponse;
     }
 
-    public async Task<RegisterMemberResponse> RegisterIssuer(string walletId, string schemaUri)
+    /// <summary>
+    /// Templates are issued from our university wallet
+    /// </summary>
+    public async Task<RegisterMemberResponse> RegisterIssuer(string schemaUri)
     {
+        var issuerWalletId = _configuration["TrinsicOptions:IssuerWalletId"];
+
         // Auth token from trinsic.id root API KEY provider
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
 
         return await _trinsicService.TrustRegistry.RegisterMemberAsync(new()
         {
-            WalletId = walletId,
+            WalletId = issuerWalletId,
             SchemaUri = schemaUri,
         });
     }
 
     public async Task<CreateCredentialOfferResponse?> IssuerStudentDiplomaCredentialOffer(Diploma diploma)
     {
-
         var templateResponse = await GetUniversityDiplomaTemplate(
             GetUniversityDiplomaTemplateId());
 
