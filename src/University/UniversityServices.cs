@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Trinsic;
 using Trinsic.Services.TrustRegistry.V1;
+using Trinsic.Services.UniversalWallet.V1;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
 using Trinsic.Services.VerifiableCredentials.V1;
 
@@ -80,5 +81,23 @@ public class UniversityServices
             .CreateAsync(diplomaTemplate);
 
         return template;
+    }
+
+    public async Task<CreateWalletResponse?> CreateUniversityWalletToIssueDiplomas()
+    {
+        var request = new CreateWalletRequest
+        {
+            EcosystemId = _configuration["TrinsicOptions:Ecosystem"],
+            Description = "wallet to issue university diplomas"
+        };
+
+        var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(request);
+
+        // This authToken and walletId is required to issue credentials
+        // add to DB
+        var authToken = createWalletResponse.AuthToken;
+        var walletId = createWalletResponse.Wallet.WalletId;
+
+        return createWalletResponse;
     }
 }
