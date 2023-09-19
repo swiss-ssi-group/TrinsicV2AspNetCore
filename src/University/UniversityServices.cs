@@ -26,7 +26,7 @@ public class UniversityServices
 
     public async Task<GetCredentialTemplateResponse>  GetUniversityDiplomaTemplate(string universityTemplateId)
     {
-        // original API 
+        // Auth token from trinsic.id root API KEY provider
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
 
         var templateResponse = await _trinsicService.Template
@@ -40,7 +40,7 @@ public class UniversityServices
 
     public async Task<RegisterMemberResponse> RegisterIssuer(string walletId, string schemaUri)
     {
-        // original API 
+        // Auth token from trinsic.id root API KEY provider
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
 
         return await _trinsicService.TrustRegistry.RegisterMemberAsync(new()
@@ -56,7 +56,7 @@ public class UniversityServices
         var templateResponse = await GetUniversityDiplomaTemplate(
             GetUniversityDiplomaTemplateId());
 
-        // University issuer
+        // Auth token from University issuer wallet
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
 
         var response = await _trinsicService.Credential.CreateCredentialOfferAsync(
@@ -72,6 +72,7 @@ public class UniversityServices
 
     public async Task<CreateCredentialTemplateResponse> CreateDiplomaTemplate(CreateCredentialTemplateRequest diplomaTemplate)
     {
+        // Auth token from University issuer wallet
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
 
         // TODO save id in a database for later usage
