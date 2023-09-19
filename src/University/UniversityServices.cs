@@ -1,7 +1,8 @@
-using Microsoft.Extensions.Configuration;
+using System.Text.Json;
 using Trinsic;
 using Trinsic.Services.TrustRegistry.V1;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
+using Trinsic.Services.VerifiableCredentials.V1;
 
 namespace University;
 
@@ -47,5 +48,25 @@ public class UniversityServices
             WalletId = walletId,
             SchemaUri = schemaUri,
         });
+    }
+
+    public async Task<CreateCredentialOfferResponse?> IssuerStudentDiplomaCredentialOffer(Diploma diploma)
+    {
+
+        var templateResponse = await GetUniversityDiplomaTemplate(
+            GetUniversityDiplomaTemplateId());
+
+        // University issuer
+        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
+
+        var response = await _trinsicService.Credential.CreateCredentialOfferAsync(
+            new CreateCredentialOfferRequest
+            {
+                TemplateId = templateResponse.Template.Id,
+                ValuesJson = JsonSerializer.Serialize(diploma),
+                GenerateShareUrl = true
+            });
+
+        return response;
     }
 }
