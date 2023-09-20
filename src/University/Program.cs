@@ -1,4 +1,4 @@
-using AspNetCoreAzureLogging;
+using University;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()

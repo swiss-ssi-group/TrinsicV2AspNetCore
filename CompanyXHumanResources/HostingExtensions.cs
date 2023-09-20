@@ -1,9 +1,6 @@
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
-using Microsoft.IdentityModel.Logging;
 using Serilog;
 
-namespace University;
+namespace CompanyXHumanResources;
 
 internal static class HostingExtensions
 {
@@ -14,38 +11,19 @@ internal static class HostingExtensions
         var configuration = builder.Configuration;
         _env = builder.Environment;
 
-        services.Configure<TrinsicOptions>(options => 
-            configuration.Bind(TrinsicOptions.Trinsic, options));
-
         services.AddTrinsic(options =>
         {
             // The auth token of the issuer wallet, not the provider api key
             options.AuthToken = configuration["TrinsicOptions:IssuerAuthToken"]; 
         });
-
-        services.AddScoped<UniversityServices>();
-
-        services.AddDistributedMemoryCache();
-
-        services.AddMicrosoftIdentityWebAppAuthentication(configuration)
-            .EnableTokenAcquisitionToCallDownstreamApi() // required to force PKCE
-            .AddDistributedTokenCaches();
-
-        services.AddAuthorization(options =>
-        {
-            options.FallbackPolicy = options.DefaultPolicy;
-        });
         
-        services.AddRazorPages()
-            .AddMicrosoftIdentityUI();
+        services.AddRazorPages();
 
         return builder.Build();
     }
     
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        IdentityModelEventSource.ShowPII = true;
-
         app.UseSerilogRequestLogging();
 
         if (_env!.IsDevelopment())
