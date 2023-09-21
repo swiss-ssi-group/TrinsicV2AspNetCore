@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_solutionItems", "_solution
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyXHumanResources", "CompanyXHumanResources\CompanyXHumanResources.csproj", "{7CFCDDF0-6558-4208-810E-8153CAA31F96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyXHumanResources", "src\CompanyXHumanResources\CompanyXHumanResources.csproj", "{7CFCDDF0-6558-4208-810E-8153CAA31F96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
