@@ -1,5 +1,5 @@
 using Trinsic;
-using Trinsic.Services.VerifiableCredentials.Templates.V1;
+using Trinsic.Services.VerifiableCredentials.V1;
 
 namespace CompanyXHumanResources;
 
@@ -28,18 +28,28 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<CreateVerificationTemplateResponse>  Verify(string universityTemplateId)
+    public async Task<CreateProofResponse>  Verify(string universityTemplateId)
     {
         // Auth token from trinsic.id root API KEY provider
-        _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
+        _trinsicService.Options.AuthToken = _configuration["TrinsicCompanyXHumanResourcesOptions:ApiKey"];
 
-        var verificationTemplate = await _trinsicService.Template.
-            .CreateVerificationTemplateAsync(new CreateVerificationTemplateRequest
-            {
+        var proof = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
+        {
+            VerificationTemplateId = universityTemplateId
+        });
 
-            });
+        //var selectiveProof = await _trinsicService.Credential.CreateProofAsync(new()
+        //{
+        //    DocumentJson = credentialJson.DocumentJson,
+        //    RevealTemplate = new()
+        //    {
+        //        // The other field, not disclosed, is "age"
+        //        TemplateAttributes = { "firstName", "lastName" }
+        //    }
+        //});
 
-        return verificationTemplate;
+
+        return proof;
     }
 
 

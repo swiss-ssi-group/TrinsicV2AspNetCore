@@ -11,12 +11,9 @@ internal static class HostingExtensions
         var configuration = builder.Configuration;
         _env = builder.Environment;
 
-        services.AddTrinsic(options =>
-        {
-            // The auth token of the issuer wallet, not the provider api key
-            options.AuthToken = configuration["TrinsicOptions:IssuerAuthToken"]; 
-        });
-        
+        services.AddScoped<DiplomaVerifyService>();
+
+        services.AddTrinsic();        
         services.AddRazorPages();
 
         return builder.Build();
