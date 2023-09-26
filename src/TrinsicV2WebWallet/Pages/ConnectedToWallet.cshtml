@@ -1,0 +1,30 @@
+﻿@page "{Email}"
+@model TrinsicV2WebWallet.Pages.ConnectedToWalletModel
+@{
+    ViewData["Title"] = "Wallet, create proof";
+}
+
+<h2>Create proof for university diploma </h2>
+
+<form method="post" class="col-lg-6 col-md-9 col-sm-12">
+
+    <input type="hidden" required asp-for="@Model.Email" id="Email" />
+
+    <div class="mb-3">
+
+        <label for="Code" class="form-label">Code *</label>
+        <input type="text" class="form-control" required asp-for="@Model.Code" id="Code" aria-describedby="codeHelp">
+        <div id="codeHelp" class="form-text">Code to validate email address</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary col-12">Create</button>
+</form>
+
+
+<br />
+
+<i>The proof can be shared with the verifier application</i>
+
+<hr />
+
+<p>@Model.ProofDocumentJson</p>

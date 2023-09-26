@@ -1,4 +1,4 @@
-﻿@page "{Email}"
+﻿@page
 @model TrinsicV2WebWallet.Pages.CreateStudentDiplomaProofModel
 @{
     ViewData["Title"] = "Wallet, create proof";
@@ -8,19 +8,10 @@
 
 <form method="post" class="col-lg-6 col-md-9 col-sm-12">
 
-    <input type="hidden" required asp-for="@Model.Email" id="Email" />
-
     <div class="mb-3">
-
-        <label for="University" class="form-label">Select your credential *</label>
+        <label for="Credential" class="form-label">Select your credential *</label>
         <select name="Credential" asp-items="Model.Credentials" class="form-control" aria-describedby="credentialsHelp"></select>
         <div id="credentialsHelp" class="form-text">Choose the credential in the wallet you would like to verify</div>
-
-        <br />
-
-        <label for="Code" class="form-label">Code *</label>
-        <input type="text" class="form-control" required asp-for="@Model.Code" id="Code" aria-describedby="codeHelp">
-        <div id="codeHelp" class="form-text">Code to validate email address</div>
     </div>
 
     <button type="submit" class="btn btn-primary col-12">Create</button>

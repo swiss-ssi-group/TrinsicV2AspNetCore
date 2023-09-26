@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Serilog;
 
 namespace TrinsicV2WebWallet;
@@ -13,6 +14,12 @@ internal static class HostingExtensions
 
         services.AddDistributedMemoryCache();
         services.AddScoped<GenerateProofService>();
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
+        .AddCookie();
 
         services.AddTrinsic();        
         services.AddRazorPages();
@@ -39,6 +46,7 @@ internal static class HostingExtensions
 
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapRazorPages();

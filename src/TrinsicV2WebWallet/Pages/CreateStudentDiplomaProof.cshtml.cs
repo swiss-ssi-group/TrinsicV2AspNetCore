@@ -1,23 +1,17 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Caching.Distributed;
 
 namespace TrinsicV2WebWallet.Pages;
 
 /// <summary>
 /// Verify Credential universaty diploma
 /// </summary>
+[Authorize]
 public class CreateStudentDiplomaProofModel : PageModel
 {
     private readonly GenerateProofService _walletService;
-    private readonly IDistributedCache _distributedCache;
-
-    [BindProperty(SupportsGet = true)]
-    public string? Email { get; set; }
-
-    [BindProperty]
-    public string Code { get; set; } = string.Empty;
 
     [BindProperty]
     public List<SelectListItem>? Credentials { get; set; }
@@ -27,30 +21,25 @@ public class CreateStudentDiplomaProofModel : PageModel
 
     public string ProofDocumentJson { get; set; } = string.Empty;
 
-    public CreateStudentDiplomaProofModel(GenerateProofService diplomaVerifyService,
-        IDistributedCache distributedCache)
+    public CreateStudentDiplomaProofModel(GenerateProofService diplomaVerifyService)
     {
         _walletService = diplomaVerifyService;
-        _distributedCache = distributedCache;
     }
 
     public async Task OnGetAsync()
     {
-        Credentials = await _walletService.GetItemsInWallet("");
+        var walletAuthClaim = User.Claims.FirstOrDefault(c => c.Type == "authResult");
+        Credentials = await _walletService.GetItemsInWallet(walletAuthClaim!.Value);
     }
 
     public async Task OnPostAsync()
-    {      
-        var data = CacheData.GetFromCache(Email!, _distributedCache);
-        if (data != null)
-        {
-            var authResult = _walletService.AuthenticateConfirm(Code, data.AuthenticateChallenge);
+    {
+        var walletAuthClaim = User.Claims.FirstOrDefault(c => c.Type == "authResult");
+ 
+        var userCreateProof = await _walletService.CreateProof(
+            walletAuthClaim!.Value,
+            Credential);
 
-            var userCreateProof = await _walletService.CreateProof(
-                authResult.AuthToken,
-                Credential);
-
-            ProofDocumentJson = userCreateProof.ProofDocumentJson;
-        }
+        ProofDocumentJson = userCreateProof.ProofDocumentJson;
     }
 }
