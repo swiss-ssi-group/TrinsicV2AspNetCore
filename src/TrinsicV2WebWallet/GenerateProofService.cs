@@ -24,6 +24,9 @@ public class GenerateProofService
         // Auth token from user 
         _trinsicService.Options.AuthToken = userAuthToken;
 
+        // get all items
+        var items = await _trinsicService.Wallet.SearchWalletAsync(new SearchRequest());
+
         var createProofResponse = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
         {
             VerificationTemplateId = universityTemplateId,

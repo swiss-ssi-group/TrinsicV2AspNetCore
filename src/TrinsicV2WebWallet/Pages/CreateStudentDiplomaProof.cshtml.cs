@@ -34,7 +34,10 @@ public class CreateStudentDiplomaProofModel : PageModel
 
         var credentialItemId = "urn:uuid:777c3ce9-22b8-4f70-98ce-c8870f5f4c0d";
         var userCreateProof = await _walletService.CreateProof(
-            proofTemplateId, nonce, authResult.AuthToken, credentialItemId);
+            proofTemplateId,
+            nonce,
+            authResult.AuthToken,
+            credentialItemId);
 
 
         ProofDocumentJson = userCreateProof.ProofDocumentJson;
