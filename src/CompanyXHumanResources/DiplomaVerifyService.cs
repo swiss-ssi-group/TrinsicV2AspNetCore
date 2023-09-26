@@ -37,7 +37,7 @@ public class DiplomaVerifyService
         });
 
         var jsonObject = JsonNode.Parse(studentProof)!;
-        var credentialSchemaId = jsonObject["data"]!["credentialSchema"]!["id"];
+        var credentialSchemaId = jsonObject["credentialSchema"]!["id"];
 
         if(universityCredentialScheme != credentialSchemaId!.ToString())
         {
