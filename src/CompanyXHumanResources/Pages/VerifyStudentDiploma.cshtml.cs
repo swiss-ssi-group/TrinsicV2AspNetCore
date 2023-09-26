@@ -30,7 +30,8 @@ public class VerifyStudentDiplomaModel : PageModel
         var authInit = _diplomaVerifyService.AuthenticateInit("damien_bod@hotmail.com");
 
         // add code from email
-        var authResult = _diplomaVerifyService.AuthenticateConfirm("", authInit);
+        var code = "";
+        var authResult = _diplomaVerifyService.AuthenticateConfirm(code, authInit);
 
         var userCreateProof = await _diplomaVerifyService.CreateProof(proofTemplateId, nonce, authResult.AuthToken);
 
