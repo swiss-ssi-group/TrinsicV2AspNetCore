@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Trinsic;
 using Trinsic.Services.VerifiableCredentials.V1;
 
@@ -7,14 +8,14 @@ public class DiplomaVerifyService
 {
     private readonly TrinsicService _trinsicService;
     private readonly IConfiguration _configuration;
-  
+
     /// <summary>
     /// This would be some public list of university diploma schemes
     /// Don't think this will work because not every uni will used the same SSI, id-tech systems, standards
     /// </summary>
-    private readonly List<string> _trustedUniversitySchemes = new List<string>
+    public readonly List<SelectListItem> TrustedUniversities = new List<SelectListItem>
     {
-        "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"
+        new SelectListItem { Text ="University SSI Schweiz", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"}
     };
 
     public DiplomaVerifyService(TrinsicService trinsicService, IConfiguration configuration)
@@ -31,9 +32,11 @@ public class DiplomaVerifyService
 
         var verifyProofResponse = await _trinsicService.Credential.VerifyProofAsync(new VerifyProofRequest
         {
-            ProofDocumentJson = studentProof, 
+            ProofDocumentJson = studentProof,
         });
 
+        // TODO verify
+        // credentialSchema:id == DiplomaCredentialForSwissSelfSovereignIdentitySSI
         return verifyProofResponse;
     }
 }
