@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace TrinsicV2WebWallet.Pages;
@@ -18,6 +19,12 @@ public class CreateStudentDiplomaProofModel : PageModel
     [BindProperty]
     public string Code { get; set; } = string.Empty;
 
+    [BindProperty]
+    public List<SelectListItem>? Credentials { get; set; }
+
+    [BindProperty]
+    public string Credential { get; set; } = string.Empty;
+
     public string ProofDocumentJson { get; set; } = string.Empty;
 
     public CreateStudentDiplomaProofModel(GenerateProofService diplomaVerifyService,
@@ -27,24 +34,21 @@ public class CreateStudentDiplomaProofModel : PageModel
         _distributedCache = distributedCache;
     }
 
-   
-    public void OnGet()
-    {  
+    public async Task OnGetAsync()
+    {
+        Credentials = await _walletService.GetItemsInWallet("");
     }
 
     public async Task OnPostAsync()
-    {
-        
+    {      
         var data = CacheData.GetFromCache(Email!, _distributedCache);
         if (data != null)
         {
             var authResult = _walletService.AuthenticateConfirm(Code, data.AuthenticateChallenge);
 
-            var credentialItemId = "urn:uuid:777c3ce9-22b8-4f70-98ce-c8870f5f4c0d";
             var userCreateProof = await _walletService.CreateProof(
                 authResult.AuthToken,
-                credentialItemId);
-
+                Credential);
 
             ProofDocumentJson = userCreateProof.ProofDocumentJson;
         }

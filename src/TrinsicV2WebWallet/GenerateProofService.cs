@@ -26,13 +26,30 @@ public class GenerateProofService
         _configuration = configuration;
     }
 
-    public async Task<CreateProofResponse>  CreateProof(string userAuthToken, string credentialItemId)
+    public async Task<List<SelectListItem>> GetItemsInWallet(string userAuthToken)
     {
+        var results = new List<SelectListItem>();
         // Auth token from user 
         _trinsicService.Options.AuthToken = userAuthToken;
 
-        // get all items
-        var items = await _trinsicService.Wallet.SearchWalletAsync(new SearchRequest());
+        // TODO add this and get from wallet
+        //// get all items
+        //var items = await _trinsicService.Wallet.SearchWalletAsync(new SearchRequest());
+        //foreach(var item in items.Items)
+        //{
+        //    // TODO parse and add wallet item
+        //    results.Add(new SelectListItem("DiplomaCredentialForSwissSelfSovereignIdentitySSI", "urn:uuid:777c3ce9-22b8-4f70-98ce-c8870f5f4c0d"));
+        //}
+
+        results.Add(new SelectListItem("DiplomaCredentialForSwissSelfSovereignIdentitySSI", "urn:uuid:777c3ce9-22b8-4f70-98ce-c8870f5f4c0d"));
+
+        return results;
+    }
+
+    public async Task<CreateProofResponse> CreateProof(string userAuthToken, string credentialItemId)
+    {
+        // Auth token from user 
+        _trinsicService.Options.AuthToken = userAuthToken;
 
         var createProofResponse = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
         {
