@@ -23,9 +23,6 @@ public class CreateStudentDiplomaProofModel : PageModel
 
     public async Task OnPostAsync()
     {
-        var nonce = "fdfdgfhrgtbh67jjvf3fc3_fr4-(4f";
-        var proofTemplateId = "urn:template:peaceful-booth-zrpufxfp6l3c:verifydiplomapresentation";
-
         var authInit = _walletService.AuthenticateInit("damien_bod@hotmail.com");
 
         // add code from email
@@ -34,8 +31,6 @@ public class CreateStudentDiplomaProofModel : PageModel
 
         var credentialItemId = "urn:uuid:777c3ce9-22b8-4f70-98ce-c8870f5f4c0d";
         var userCreateProof = await _walletService.CreateProof(
-            proofTemplateId,
-            nonce,
             authResult.AuthToken,
             credentialItemId);
 

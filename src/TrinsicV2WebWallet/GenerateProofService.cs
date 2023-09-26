@@ -18,8 +18,7 @@ public class GenerateProofService
         _configuration = configuration;
     }
 
-    public async Task<CreateProofResponse>  CreateProof(string universityTemplateId,
-        string nonce, string userAuthToken, string credentialItemId)
+    public async Task<CreateProofResponse>  CreateProof(string userAuthToken, string credentialItemId)
     {
         // Auth token from user 
         _trinsicService.Options.AuthToken = userAuthToken;
@@ -29,9 +28,7 @@ public class GenerateProofService
 
         var createProofResponse = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
         {
-            VerificationTemplateId = universityTemplateId,
             ItemId = credentialItemId,
-            Nonce = ByteString.CopyFrom(nonce, Encoding.Unicode)
         });
 
         //var selectiveProof = await _trinsicService.Credential.CreateProofAsync(new()
