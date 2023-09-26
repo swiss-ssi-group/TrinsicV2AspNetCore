@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Trinsic;
 using Trinsic.Services.Provider.V1;
@@ -36,8 +37,22 @@ public class GenerateProofService
         var items = await _trinsicService.Wallet.SearchWalletAsync(new SearchRequest());
         foreach (var item in items.Items)
         {
-            // TODO parse and add wallet item
-            results.Add(new SelectListItem("DiplomaCredentialForSwissSelfSovereignIdentitySSI", "urn:uuid:777c3ce9-22b8-4f70-98ce-c8870f5f4c0d"));
+            var jsonObject = JsonNode.Parse(item)!;
+            var id = jsonObject["id"];
+            var vcArray = jsonObject["data"]!["type"];
+            var vc = string.Empty;
+            foreach (var i in vcArray!.AsArray())
+            {
+                var val = i!.ToString();
+                if (val != "VerifiableCredential")
+                {
+                    vc = val!.ToString();
+                    break;
+                }
+            }
+            //var issuer = jsonObject["data"]!["issuer"];
+
+            results.Add(new SelectListItem(vc, id!.ToString()));
         }
 
         return results;
