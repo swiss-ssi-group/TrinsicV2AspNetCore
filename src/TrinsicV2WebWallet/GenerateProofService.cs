@@ -1,5 +1,3 @@
-using Google.Protobuf;
-using System.Text;
 using Trinsic;
 using Trinsic.Services.Provider.V1;
 using Trinsic.Services.UniversalWallet.V1;
@@ -60,11 +58,11 @@ public class GenerateProofService
         return authenticateInitResponse;
     }
 
-    public AuthenticateConfirmResponse AuthenticateConfirm(string code, AuthenticateInitResponse authenticateInitResponse)
+    public AuthenticateConfirmResponse AuthenticateConfirm(string code, string challenge)
     {
         var requestConfirm = new AuthenticateConfirmRequest
         {
-            Challenge = authenticateInitResponse.Challenge,
+            Challenge = challenge,
             Response = code
         };
         var authenticateConfirmResponse = _trinsicService.Wallet.AuthenticateConfirm(requestConfirm);

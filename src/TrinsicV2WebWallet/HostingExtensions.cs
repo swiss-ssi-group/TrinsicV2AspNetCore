@@ -11,6 +11,7 @@ internal static class HostingExtensions
         var configuration = builder.Configuration;
         _env = builder.Environment;
 
+        services.AddDistributedMemoryCache();
         services.AddScoped<GenerateProofService>();
 
         services.AddTrinsic();        
