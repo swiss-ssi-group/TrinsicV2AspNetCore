@@ -4,13 +4,21 @@
     ViewData["Title"] = "Verify your Diploma";
 }
 
-<h2>Verify a VC Diploma (CredentialOffer)</h2>
+<h2>Verify a VC diploma</h2>
 
-<form method="post">
-    <button type="submit" class="btn btn-primary col-sm-10">Verify your Diploma</button>
+<form method="post" class="col-lg-6 col-md-9 col-sm-12">
+
+    <div class="mb-3">
+        <label for="DiplomaProof" class="form-label">Diploma Proof *</label>
+        <input type="text" class="form-control" required asp-for="@Model.DiplomaProof" id="DiplomaProof" aria-describedby="diplomaProofHelp">
+        <div id="diplomaProofHelp" class="form-text">Proof to validate university diploma</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary col-12">Validate</button>
 </form>
 
 <br />
 <br />
 
+<i>Diploma is valid: </i>
 <p>@Model.UniversityCredentialIsValid</p>
