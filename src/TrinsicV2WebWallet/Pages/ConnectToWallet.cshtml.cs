@@ -18,6 +18,9 @@ public class ConnectToWalletModel : PageModel
         _distributedCache = distributedCache;
     }
 
+    [BindProperty]
+    public string Email { get; set; } = string.Empty;
+
     public void Get()
     {
        
@@ -25,15 +28,15 @@ public class ConnectToWalletModel : PageModel
 
     public IActionResult OnPost()
     {
-        var authInit = _walletService.AuthenticateInit("damien_bod@hotmail.com");
+        var authInit = _walletService.AuthenticateInit(Email);
 
         var cacheData = new CacheData
         {
             AuthenticateChallenge = authInit.Challenge
         };
 
-        CacheData.AddToCache("damien_bod@hotmail.com", _distributedCache, cacheData);
+        CacheData.AddToCache(Email, _distributedCache, cacheData);
 
-        return Redirect($"~/CreateStudentDiplomaProof");
+        return Redirect($"~/CreateStudentDiplomaProof/{Email}");
     }
 }
