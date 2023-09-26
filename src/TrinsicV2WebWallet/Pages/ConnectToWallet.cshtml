@@ -8,6 +8,13 @@
 
 <form method="post" class="col-lg-6 col-md-9 col-sm-12">
     <div class="mb-3">
+
+        <label for="University" class="form-label">Select your university *</label>
+        <select name="University" asp-items="Model.Universities" class="form-control" aria-describedby="universityHelp"></select>
+        <div id="universityHelp" class="form-text">University where you completed your diploma</div>
+
+        <br />
+
         <label for="Email" class="form-label">Email address *</label>
         <input type="email" class="form-control" required asp-for="@Model.Email" id="Email" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">Wallet Email</div>

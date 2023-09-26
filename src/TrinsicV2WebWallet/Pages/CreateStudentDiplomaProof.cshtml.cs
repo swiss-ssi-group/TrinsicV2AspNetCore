@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -8,7 +6,6 @@ namespace TrinsicV2WebWallet.Pages;
 
 /// <summary>
 /// Verify Credential universaty diploma
-
 /// </summary>
 public class CreateStudentDiplomaProofModel : PageModel
 {

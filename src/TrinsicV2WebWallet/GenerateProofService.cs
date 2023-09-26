@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Trinsic;
 using Trinsic.Services.Provider.V1;
 using Trinsic.Services.UniversalWallet.V1;
@@ -9,6 +10,15 @@ public class GenerateProofService
 {
     private readonly TrinsicService _trinsicService;
     private readonly IConfiguration _configuration;
+
+    /// <summary>
+    /// This would be some public list of university diploma schemes
+    /// Don't think this will work because not every uni will used the same SSI, id-tech systems, standards
+    /// </summary>
+    public readonly List<SelectListItem> Universities = new List<SelectListItem>
+    {
+        new SelectListItem { Text ="University SSI Schweiz", Value= "peaceful-booth-zrpufxfp6l3c"}
+    };
 
     public GenerateProofService(TrinsicService trinsicService, IConfiguration configuration)
     {
@@ -42,15 +52,13 @@ public class GenerateProofService
         return createProofResponse;
     }
 
-    public AuthenticateInitResponse AuthenticateInit(string userId)
+    public AuthenticateInitResponse AuthenticateInit(string userId, string universityEcosystemId)
     {
-        var universityEcoSystemId = _configuration["TrinsicUniversityOptions:Ecosystem"];
-
         var requestInit = new AuthenticateInitRequest
         {
             Identity = userId,
             Provider = IdentityProvider.Email,
-            EcosystemId = universityEcoSystemId
+            EcosystemId = universityEcosystemId
         };
 
         var authenticateInitResponse = _trinsicService.Wallet.AuthenticateInit(requestInit);
