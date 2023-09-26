@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Trinsic;
 using Trinsic.Services.VerifiableCredentials.V1;
@@ -35,7 +36,21 @@ public class DiplomaVerifyService
             ProofDocumentJson = studentProof,
         });
 
-        // TODO verify
+        var jsonObject = JsonNode.Parse(studentProof)!;
+        var vcArray = jsonObject["data"]!["type"];
+        var vc = string.Empty;
+        foreach (var i in vcArray!.AsArray())
+        {
+            var val = i!.ToString();
+            if (val != "VerifiableCredential")
+            {
+                vc = val!.ToString();
+                break;
+            }
+        }
+
+        var issuer = jsonObject["data"]!["issuer"]!.ToString();
+
         // credentialSchema:id == DiplomaCredentialForSwissSelfSovereignIdentitySSI, i.e value from TrustedUniversities
         return verifyProofResponse;
     }
