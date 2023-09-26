@@ -29,8 +29,6 @@ public class DiplomaVerifyService
         // Auth token from trinsic.id root API KEY provider
         _trinsicService.Options.AuthToken = _configuration["TrinsicCompanyXHumanResourcesOptions:ApiKey"];
 
-        //Nonce = ByteString.CopyFrom(nonce, Encoding.Unicode)
-
         var verifyProofResponse = await _trinsicService.Credential.VerifyProofAsync(new VerifyProofRequest
         {
             ProofDocumentJson = studentProof, 
