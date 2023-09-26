@@ -24,7 +24,7 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<VerifyProofResponse> Verify(string studentProof)
+    public async Task<VerifyProofResponse> Verify(string studentProof, string universityCredentialScheme)
     {
         // Verifiers auth token
         // Auth token from trinsic.id root API KEY provider
@@ -36,7 +36,7 @@ public class DiplomaVerifyService
         });
 
         // TODO verify
-        // credentialSchema:id == DiplomaCredentialForSwissSelfSovereignIdentitySSI
+        // credentialSchema:id == DiplomaCredentialForSwissSelfSovereignIdentitySSI, i.e value from TrustedUniversities
         return verifyProofResponse;
     }
 }

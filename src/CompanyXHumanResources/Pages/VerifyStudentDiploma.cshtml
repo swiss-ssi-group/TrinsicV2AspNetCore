@@ -9,6 +9,9 @@
 <form method="post" class="col-lg-6 col-md-9 col-sm-12">
 
     <div class="mb-3">
+
+        <select name="University" asp-items="Model.Universities"></select>
+
         <label for="DiplomaProof" class="form-label">Diploma Proof *</label>
         <input type="text" class="form-control" required asp-for="@Model.DiplomaProof" id="DiplomaProof" aria-describedby="diplomaProofHelp">
         <div id="diplomaProofHelp" class="form-text">Proof to validate university diploma</div>
