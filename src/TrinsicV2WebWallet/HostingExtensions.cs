@@ -11,7 +11,7 @@ internal static class HostingExtensions
         var configuration = builder.Configuration;
         _env = builder.Environment;
 
-        services.AddScoped<DiplomaVerifyService>();
+        services.AddScoped<GenerateProofService>();
 
         services.AddTrinsic();        
         services.AddRazorPages();

@@ -1,4 +1,4 @@
-namespace CompanyXHumanResources;
+namespace TrinsicV2WebWallet;
 
 public class Diploma
 {

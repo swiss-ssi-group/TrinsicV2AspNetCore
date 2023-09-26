@@ -5,7 +5,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
 
-Log.Information("Starting CompanyXHumanResources application");
+Log.Information("Starting Trinsic Web Wallet application");
 
 try
 {

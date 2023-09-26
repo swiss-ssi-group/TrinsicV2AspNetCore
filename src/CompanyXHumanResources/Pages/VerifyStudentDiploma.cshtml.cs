@@ -1,17 +1,12 @@
-using CompanyXHumanResources;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CompanyXHumanResources.Pages;
+namespace TrinsicV2WebWallet.Pages;
 
-/// <summary>
-/// Verify Credential universaty diploma
-
-/// </summary>
 public class VerifyStudentDiplomaModel : PageModel
 {
     private readonly DiplomaVerifyService _diplomaVerifyService;
 
-    public string ProofDocumentJson { get; set; } = string.Empty;
+    public bool UniversityCredentialIsValid { get; set; }
 
     public VerifyStudentDiplomaModel(DiplomaVerifyService diplomaVerifyService)
     {
@@ -25,20 +20,12 @@ public class VerifyStudentDiplomaModel : PageModel
     public async Task OnPostAsync()
     {
         var nonce = "fdfdgfhrgtbh67jjvf3fc3_fr4-(4f";
-        var proofTemplateId = "urn:template:peaceful-booth-zrpufxfp6l3c:verifydiplomapresentation";
-
-        var authInit = _diplomaVerifyService.AuthenticateInit("damien_bod@hotmail.com");
-
-        // add code from email
-        var code = "";
-        var authResult = _diplomaVerifyService.AuthenticateConfirm(code, authInit);
-
-        var userCreateProof = await _diplomaVerifyService.CreateProof(proofTemplateId, nonce, authResult.AuthToken);
+        var userCreateProof = ""; // UI init param
 
         var verifyUserCreatedProof = await _diplomaVerifyService.Verify(userCreateProof, nonce);
 
         var isValid = verifyUserCreatedProof.IsValid;
 
-        ProofDocumentJson = userCreateProof!.ProofDocumentJson;
+        UniversityCredentialIsValid = isValid;
     }
 }
