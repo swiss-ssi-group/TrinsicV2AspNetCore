@@ -23,7 +23,7 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<VerifyProofResponse> Verify(string studentProof, string nonce)
+    public async Task<VerifyProofResponse> Verify(string studentProof)
     {
         // Verifiers auth token
         // Auth token from trinsic.id root API KEY provider
