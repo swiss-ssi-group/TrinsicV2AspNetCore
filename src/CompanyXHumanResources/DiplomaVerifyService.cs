@@ -25,7 +25,7 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<VerifyProofResponse> Verify(string studentProof, string universityCredentialScheme)
+    public async Task<(VerifyProofResponse? Proof, bool IsValid)> Verify(string studentProof, string universityCredentialScheme)
     {
         // Verifiers auth token
         // Auth token from trinsic.id root API KEY provider
@@ -37,21 +37,13 @@ public class DiplomaVerifyService
         });
 
         var jsonObject = JsonNode.Parse(studentProof)!;
-        var vcArray = jsonObject["data"]!["type"];
-        var vc = string.Empty;
-        foreach (var i in vcArray!.AsArray())
+        var credentialSchemaId = jsonObject["data"]!["credentialSchema"]!["id"];
+
+        if(universityCredentialScheme != credentialSchemaId!.ToString())
         {
-            var val = i!.ToString();
-            if (val != "VerifiableCredential")
-            {
-                vc = val!.ToString();
-                break;
-            }
+            return (null, false);
         }
 
-        var issuer = jsonObject["data"]!["issuer"]!.ToString();
-
-        // credentialSchema:id == DiplomaCredentialForSwissSelfSovereignIdentitySSI, i.e value from TrustedUniversities
-        return verifyProofResponse;
+        return (verifyProofResponse, true);
     }
 }
