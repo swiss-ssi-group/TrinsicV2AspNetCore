@@ -25,7 +25,7 @@ public class VerifyStudentDiplomaModel : PageModel
     public async Task OnPostAsync()
     {
 
-        var response = await _diplomaVerifyService.Verify(
+        var response = await _diplomaVerifyService.CreateProof(
             "urn:template:peaceful-booth-zrpufxfp6l3c:verifydiplomapresentation");
 
         ProofDocumentJson = response!.ProofDocumentJson;

@@ -1,3 +1,5 @@
+using Google.Protobuf;
+using System.Text;
 using Trinsic;
 using Trinsic.Services.VerifiableCredentials.V1;
 
@@ -28,14 +30,15 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<CreateProofResponse>  Verify(string universityTemplateId)
+    public async Task<CreateProofResponse>  CreateProof(string universityTemplateId)
     {
-        // Auth token from trinsic.id root API KEY provider
-        _trinsicService.Options.AuthToken = _configuration["TrinsicCompanyXHumanResourcesOptions:ApiKey"];
+        // Auth token from user 
+        _trinsicService.Options.AuthToken = "";
 
         var proof = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
         {
-            VerificationTemplateId = universityTemplateId
+            VerificationTemplateId = universityTemplateId,
+            Nonce = ByteString.CopyFrom("e#>ffr4f4tgzh6j5fd3&*m16", Encoding.Unicode)
         });
 
         //var selectiveProof = await _trinsicService.Credential.CreateProofAsync(new()
@@ -48,12 +51,27 @@ public class DiplomaVerifyService
         //    }
         //});
 
-
         return proof;
     }
 
+    public async Task<VerifyProofResponse> Verfiy(CreateProofResponse createProofResponse)
+    {
+        // Auth token from trinsic.id root API KEY provider
+        _trinsicService.Options.AuthToken = _configuration["TrinsicCompanyXHumanResourcesOptions:ApiKey"];
 
-  
+        //Nonce = ByteString.CopyFrom("e#>ffr4f4tgzh6j5fd3&*m16", Encoding.Unicode)
+   
+
+        var verifyProofResponse = await _trinsicService.Credential.VerifyProofAsync(new VerifyProofRequest
+        {
+            ProofDocumentJson = createProofResponse.ProofDocumentJson, 
+        });
+
+        return verifyProofResponse;
+    }
+
+
+
 
 
 }
