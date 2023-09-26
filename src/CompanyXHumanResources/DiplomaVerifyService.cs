@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Trinsic;
 using Trinsic.Services.VerifiableCredentials.V1;
 
-namespace TrinsicV2WebWallet;
+namespace CompanyXHumanResources;
 
 public class DiplomaVerifyService
 {

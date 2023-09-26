@@ -2,13 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace TrinsicV2WebWallet.Pages;
+namespace CompanyXHumanResources.Pages;
 
 public class VerifyStudentDiplomaModel : PageModel
 {
     private readonly DiplomaVerifyService _diplomaVerifyService;
-
     public bool UniversityCredentialIsValid { get; set; }
+
+    public VerifyStudentDiplomaModel(DiplomaVerifyService diplomaVerifyService)
+    {
+        _diplomaVerifyService = diplomaVerifyService;
+    }
 
     [BindProperty]
     public string DiplomaProof {  get; set; } = string.Empty;
@@ -19,20 +23,14 @@ public class VerifyStudentDiplomaModel : PageModel
     [BindProperty]
     public string University { get; set; } = string.Empty;
 
-    public VerifyStudentDiplomaModel(DiplomaVerifyService diplomaVerifyService)
-    {
-        _diplomaVerifyService = diplomaVerifyService;
-    }
-
     public void Get()
     {
-        Universities = _diplomaVerifyService.TrustedUniversities;
+        Universities.AddRange(_diplomaVerifyService.TrustedUniversities);
     }
 
     public async Task OnPostAsync()
     {
         var verify = await _diplomaVerifyService.Verify(DiplomaProof, University);
-
         UniversityCredentialIsValid = verify.IsValid;
     }
 }

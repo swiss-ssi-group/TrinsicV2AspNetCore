@@ -1,4 +1,4 @@
-using TrinsicV2WebWallet;
+using CompanyXHumanResources;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()

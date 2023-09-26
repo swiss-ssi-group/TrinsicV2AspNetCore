@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TrinsicV2WebWallet.Pages;
+namespace CompanyXHumanResources.Pages;
 
 public class IndexModel : PageModel
 {

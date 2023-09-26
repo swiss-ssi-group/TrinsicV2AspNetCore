@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace TrinsicV2WebWallet;
+namespace CompanyXHumanResources;
 
 internal static class HostingExtensions
 {
