@@ -1,6 +1,8 @@
 using Google.Protobuf;
 using System.Text;
 using Trinsic;
+using Trinsic.Services.Provider.V1;
+using Trinsic.Services.UniversalWallet.V1;
 using Trinsic.Services.VerifiableCredentials.V1;
 
 namespace CompanyXHumanResources;
@@ -30,10 +32,11 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<CreateProofResponse>  CreateProof(string universityTemplateId, string nonce)
+    public async Task<CreateProofResponse>  CreateProof(string universityTemplateId,
+        string nonce, string userAuthToken)
     {
         // Auth token from user 
-        _trinsicService.Options.AuthToken = "";
+        _trinsicService.Options.AuthToken = userAuthToken;
 
         var createProofResponse = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
         {
@@ -54,14 +57,13 @@ public class DiplomaVerifyService
         return createProofResponse;
     }
 
-    public async Task<VerifyProofResponse> Verfiy(CreateProofResponse createProofResponse, string nonce)
+    public async Task<VerifyProofResponse> Verify(CreateProofResponse createProofResponse, string nonce)
     {
         // Verifiers auth token
         // Auth token from trinsic.id root API KEY provider
         _trinsicService.Options.AuthToken = _configuration["TrinsicCompanyXHumanResourcesOptions:ApiKey"];
 
         //Nonce = ByteString.CopyFrom(nonce, Encoding.Unicode)
-
 
         var verifyProofResponse = await _trinsicService.Credential.VerifyProofAsync(new VerifyProofRequest
         {
@@ -71,7 +73,33 @@ public class DiplomaVerifyService
         return verifyProofResponse;
     }
 
+    public AuthenticateInitResponse AuthenticateInit(string userId)
+    {
+        var universityEcoSystemId = _configuration["TrinsicUniversityOptions:Ecosystem"];
 
+        var requestInit = new AuthenticateInitRequest
+        {
+            Identity = userId,
+            Provider = IdentityProvider.Email,
+            EcosystemId = universityEcoSystemId
+        };
+
+        var authenticateInitResponse = _trinsicService.Wallet.AuthenticateInit(requestInit);
+
+        return authenticateInitResponse;
+    }
+
+    public AuthenticateConfirmResponse AuthenticateConfirm(string code, AuthenticateInitResponse authenticateInitResponse)
+    {
+        var requestConfirm = new AuthenticateConfirmRequest
+        {
+            Challenge = authenticateInitResponse.Challenge,
+            Response = code
+        };
+        var authenticateConfirmResponse = _trinsicService.Wallet.AuthenticateConfirm(requestConfirm);
+
+        return authenticateConfirmResponse;
+    }
 
 
 

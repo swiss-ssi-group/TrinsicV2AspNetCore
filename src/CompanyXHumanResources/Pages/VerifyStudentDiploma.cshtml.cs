@@ -27,9 +27,14 @@ public class VerifyStudentDiplomaModel : PageModel
         var nonce = "fdfdgfhrgtbh67jjvf3fc3_fr4-(4f";
         var proofTemplateId = "urn:template:peaceful-booth-zrpufxfp6l3c:verifydiplomapresentation";
 
-        var userCreateProof = await _diplomaVerifyService.CreateProof(proofTemplateId, nonce);
+        var authInit = _diplomaVerifyService.AuthenticateInit("damien_bod@hotmail.com");
 
-        var verifyUserCreatedProof = await _diplomaVerifyService.Verfiy(userCreateProof, nonce);
+        // add code from email
+        var authResult = _diplomaVerifyService.AuthenticateConfirm("", authInit);
+
+        var userCreateProof = await _diplomaVerifyService.CreateProof(proofTemplateId, nonce, authResult.AuthToken);
+
+        var verifyUserCreatedProof = await _diplomaVerifyService.Verify(userCreateProof, nonce);
 
         var isValid = verifyUserCreatedProof.IsValid;
 
