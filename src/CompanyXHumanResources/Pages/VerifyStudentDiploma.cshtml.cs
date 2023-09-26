@@ -24,10 +24,15 @@ public class VerifyStudentDiplomaModel : PageModel
 
     public async Task OnPostAsync()
     {
+        var nonce = "fdfdgfhrgtbh67jjvf3fc3_fr4-(4f";
+        var proofTemplateId = "urn:template:peaceful-booth-zrpufxfp6l3c:verifydiplomapresentation";
 
-        var response = await _diplomaVerifyService.CreateProof(
-            "urn:template:peaceful-booth-zrpufxfp6l3c:verifydiplomapresentation");
+        var userCreateProof = await _diplomaVerifyService.CreateProof(proofTemplateId, nonce);
 
-        ProofDocumentJson = response!.ProofDocumentJson;
+        var verifyUserCreatedProof = await _diplomaVerifyService.Verfiy(userCreateProof, nonce);
+
+        var isValid = verifyUserCreatedProof.IsValid;
+
+        ProofDocumentJson = userCreateProof!.ProofDocumentJson;
     }
 }

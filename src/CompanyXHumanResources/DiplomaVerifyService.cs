@@ -30,15 +30,15 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<CreateProofResponse>  CreateProof(string universityTemplateId)
+    public async Task<CreateProofResponse>  CreateProof(string universityTemplateId, string nonce)
     {
         // Auth token from user 
         _trinsicService.Options.AuthToken = "";
 
-        var proof = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
+        var createProofResponse = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
         {
             VerificationTemplateId = universityTemplateId,
-            Nonce = ByteString.CopyFrom("e#>ffr4f4tgzh6j5fd3&*m16", Encoding.Unicode)
+            Nonce = ByteString.CopyFrom(nonce, Encoding.Unicode)
         });
 
         //var selectiveProof = await _trinsicService.Credential.CreateProofAsync(new()
@@ -51,16 +51,17 @@ public class DiplomaVerifyService
         //    }
         //});
 
-        return proof;
+        return createProofResponse;
     }
 
-    public async Task<VerifyProofResponse> Verfiy(CreateProofResponse createProofResponse)
+    public async Task<VerifyProofResponse> Verfiy(CreateProofResponse createProofResponse, string nonce)
     {
+        // Verifiers auth token
         // Auth token from trinsic.id root API KEY provider
         _trinsicService.Options.AuthToken = _configuration["TrinsicCompanyXHumanResourcesOptions:ApiKey"];
 
-        //Nonce = ByteString.CopyFrom("e#>ffr4f4tgzh6j5fd3&*m16", Encoding.Unicode)
-   
+        //Nonce = ByteString.CopyFrom(nonce, Encoding.Unicode)
+
 
         var verifyProofResponse = await _trinsicService.Credential.VerifyProofAsync(new VerifyProofRequest
         {
