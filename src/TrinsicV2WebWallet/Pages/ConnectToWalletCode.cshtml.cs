@@ -10,7 +10,7 @@ namespace TrinsicV2WebWallet.Pages;
 /// <summary>
 /// Verify Credential universaty diploma
 /// </summary>
-public class ConnectedToWalletModel : PageModel
+public class ConnectedToWalletCodeModel : PageModel
 {
     private readonly GenerateProofService _walletService;
     private readonly IDistributedCache _distributedCache;
@@ -23,7 +23,7 @@ public class ConnectedToWalletModel : PageModel
 
     public string ProofDocumentJson { get; set; } = string.Empty;
 
-    public ConnectedToWalletModel(GenerateProofService diplomaVerifyService,
+    public ConnectedToWalletCodeModel(GenerateProofService diplomaVerifyService,
         IDistributedCache distributedCache)
     {
         _walletService = diplomaVerifyService;

@@ -44,6 +44,6 @@ public class ConnectToWalletModel : PageModel
 
         CacheData.AddToCache(Email, _distributedCache, cacheData);
 
-        return Redirect($"~/ConnectedToWallet/{Email}");
+        return Redirect($"~/ConnectedToWalletCode/{Email}");
     }
 }
