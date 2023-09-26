@@ -10,7 +10,11 @@
 
     <div class="mb-3">
 
-        <select name="University" asp-items="Model.Universities" class="form-control"></select>
+        <label for="University" class="form-label">Select your university *</label>
+        <select name="University" asp-items="Model.Universities" class="form-control" aria-describedby="universityHelp"></select>
+        <div id="universityHelp" class="form-text">University where you completed your diploma</div>
+
+        <br />
 
         <label for="DiplomaProof" class="form-label">Diploma Proof *</label>
         <input type="text" class="form-control" required asp-for="@Model.DiplomaProof" id="DiplomaProof" aria-describedby="diplomaProofHelp">
