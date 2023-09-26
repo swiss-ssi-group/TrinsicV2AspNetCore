@@ -10,7 +10,7 @@
 
     <div class="mb-3">
 
-        <select name="University" asp-items="Model.Universities"></select>
+        <select name="University" asp-items="Model.Universities" class="form-control"></select>
 
         <label for="DiplomaProof" class="form-label">Diploma Proof *</label>
         <input type="text" class="form-control" required asp-for="@Model.DiplomaProof" id="DiplomaProof" aria-describedby="diplomaProofHelp">

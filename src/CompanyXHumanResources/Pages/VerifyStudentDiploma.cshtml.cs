@@ -23,9 +23,9 @@ public class VerifyStudentDiplomaModel : PageModel
     [BindProperty]
     public string University { get; set; } = string.Empty;
 
-    public void Get()
+    public void OnGet()
     {
-        Universities.AddRange(_diplomaVerifyService.TrustedUniversities);
+        Universities = _diplomaVerifyService.TrustedUniversities;
     }
 
     public async Task OnPostAsync()

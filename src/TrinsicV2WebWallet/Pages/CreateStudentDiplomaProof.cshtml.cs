@@ -31,7 +31,7 @@ public class CreateStudentDiplomaProofModel : PageModel
     }
 
    
-    public void Get()
+    public void OnGet()
     {  
     }
 

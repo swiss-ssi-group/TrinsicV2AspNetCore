@@ -21,7 +21,7 @@ public class IssueStudentDiplomaModel : PageModel
         _universityServices = universityServices;
     }
 
-    public void Get()
+    public void OnGet()
     {
     }
 

@@ -21,7 +21,7 @@ public class ConnectToWalletModel : PageModel
     [BindProperty]
     public string Email { get; set; } = string.Empty;
 
-    public void Get()
+    public void OnGet()
     {
        
     }
