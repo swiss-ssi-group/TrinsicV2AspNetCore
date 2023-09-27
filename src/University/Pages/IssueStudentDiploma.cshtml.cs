@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Trinsic;
+using University.Service;
 
 namespace University.Pages;
 

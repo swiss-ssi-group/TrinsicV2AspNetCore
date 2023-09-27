@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Trinsic;
 using Trinsic.Services.UniversalWallet.V1;
 
 namespace University.Pages;
@@ -10,19 +9,16 @@ namespace University.Pages;
 /// </summary>
 public class CreateUniversityIssuerModel : PageModel
 {
-    private readonly TrinsicService _trinsicService;
     private readonly IConfiguration _configuration;
     private readonly UniversityServices _universityServices;
 
     public string WalletId { get; set; } = string.Empty;
     public string AuthToken { get; set; } = string.Empty;
 
-    public CreateUniversityIssuerModel(TrinsicService trinsicService,
-        UniversityServices universityServices,
+    public CreateUniversityIssuerModel(UniversityServices universityServices,
         IConfiguration configuration)
     {
         _universityServices = universityServices;
-        _trinsicService = trinsicService;
         _configuration = configuration;
     }
 
