@@ -9,8 +9,15 @@
 <p>Access to this page and the diploma is controlled by the university administrator.</p>
 <p>The creates a new credential VC offer.</p>
 
-<form method="post">
-    <button type="submit" class="btn btn-primary col-sm-10">Get your Diploma</button>
+<form method="post" class="col-lg-6 col-md-9 col-sm-12">
+
+    <div class="mb-3">
+        <label for="DiplomaTemplateId" class="form-label">Select your diploma *</label>
+        <select name="DiplomaTemplateId" asp-items="Model.DiplomaTemplates" class="form-control" aria-describedby="diplomaTemplateIdHelp"></select>
+        <div id="diplomaTemplateIdHelp" class="form-text">Choose the diploma in the wallet you would like add to your wallet</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary col-12">Get your Diploma</button>
 </form>
 
 <br />

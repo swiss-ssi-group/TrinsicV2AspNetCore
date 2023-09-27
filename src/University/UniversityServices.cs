@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trinsic;
 using Trinsic.Services.TrustRegistry.V1;
@@ -32,7 +34,7 @@ public class UniversityServices
         return template!.TemplateId;
     }
 
-    public async Task<GetCredentialTemplateResponse>  GetUniversityDiplomaTemplate(string universityTemplateId)
+    public async Task<GetCredentialTemplateResponse> GetUniversityDiplomaTemplate(string universityTemplateId)
     {
         // Auth token from trinsic.id root API KEY provider
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:ApiKey"];
@@ -44,6 +46,17 @@ public class UniversityServices
             });
 
         return templateResponse;
+    }
+
+    public async Task<List<SelectListItem>> GetUniversityDiplomaTemplates()
+    {
+        var items = await _context.DiplomaTemplates.Select(s => new SelectListItem
+        {
+            Text = s.Name,
+            Value = s.Id.ToString(CultureInfo.InvariantCulture)
+        }).ToListAsync();
+
+        return items;
     }
 
     /// <summary>

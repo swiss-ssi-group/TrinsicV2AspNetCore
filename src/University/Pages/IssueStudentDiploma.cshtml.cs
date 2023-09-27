@@ -1,5 +1,7 @@
 using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Trinsic;
 using University.Service;
 
@@ -15,6 +17,12 @@ public class IssueStudentDiplomaModel : PageModel
 {
     private readonly UniversityServices _universityServices;
 
+    [BindProperty]
+    public List<SelectListItem>? DiplomaTemplates { get; set; }
+
+    [BindProperty]
+    public string DiplomaTemplateId { get; set; } = string.Empty;
+
     public string CredentialOfferUrl { get; set; } = string.Empty;
 
     public IssueStudentDiplomaModel(UniversityServices universityServices)
@@ -22,8 +30,9 @@ public class IssueStudentDiplomaModel : PageModel
         _universityServices = universityServices;
     }
 
-    public void OnGet()
+    public async Task OnGetAsync()
     {
+        DiplomaTemplates = await _universityServices.GetUniversityDiplomaTemplates();
     }
 
     public async Task OnPostAsync()
@@ -40,8 +49,9 @@ public class IssueStudentDiplomaModel : PageModel
             DiplomaIssuedDate = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
         };
 
-        // TODO get templateId from DB
-        var response = await _universityServices.IssuerStudentDiplomaCredentialOffer(diploma, 1);
+        var templateId = Convert.ToInt32(DiplomaTemplateId);
+
+        var response = await _universityServices.IssuerStudentDiplomaCredentialOffer(diploma, templateId);
 
         CredentialOfferUrl = response!.ShareUrl;
     }
