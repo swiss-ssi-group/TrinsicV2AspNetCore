@@ -17,17 +17,31 @@
         <div id="diplomaTemplateIdHelp" class="form-text">Choose the diploma in the wallet you would like add to your wallet</div>
     </div>
 
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email *</label>
+        <input type="email" class="form-control" required asp-for="@Model.Diploma.Email" id="FirstName" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">student email</div>
+
+        <label for="FirstName" class="form-label">FirstName *</label>
+        <input type="text" class="form-control" required asp-for="@Model.Diploma.FirstName" id="FirstName" aria-describedby="firstNameHelp">
+        <div id="firstNameHelp" class="form-text">First name</div>
+
+        <label for="LastName" class="form-label">LastName *</label>
+        <input type="text" class="form-control" required asp-for="@Model.Diploma.LastName" id="LastName" aria-describedby="lastNameHelp">
+        <div id="lastNameHelp" class="form-text">Surname</div>
+
+        <label for="DateOfBirth" class="form-label">DateOfBirth *</label>
+        <input type="text" class="form-control" required asp-for="@Model.Diploma.DateOfBirth" id="DateOfBirth" aria-describedby="dateOfBirthHelp">
+        <div id="dateOfBirthHelp" class="form-text">Date of birth from student</div>
+
+        <label for="DiplomaTitle" class="form-label">Diploma title *</label>
+        <input type="text" class="form-control" required asp-for="@Model.Diploma.DiplomaTitle" id="DiplomaTitle" aria-describedby="diplomaTitleHelp">
+        <div id="diplomaTitleHelp" class="form-text">Title of diploma</div>
+
+        <label for="DiplomaSpecialisation" class="form-label">Diploma specialisation *</label>
+        <input type="text" class="form-control" required asp-for="@Model.Diploma.DiplomaSpecialisation" id="DiplomaSpecialisation" aria-describedby="diplomaSpecialisationHelp">
+        <div id="diplomaSpecialisationHelp" class="form-text">Diploma specialisation</div>
+    </div>
+
     <button type="submit" class="btn btn-primary col-12">Get your Diploma</button>
 </form>
-
-<br />
-<br />
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm">
-            <div class="qr" id="qrCode"></div>
-        </div>
-    </div>
-</div>
-

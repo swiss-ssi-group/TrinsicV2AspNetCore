@@ -2,7 +2,6 @@ using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Trinsic;
 using University.Service;
 
 namespace University.Pages;
@@ -17,6 +16,9 @@ public class CreateStudentDiplomaModel : PageModel
     [BindProperty]
     public string DiplomaTemplateId { get; set; } = string.Empty;
 
+    [BindProperty]
+    public Diploma Diploma { get; set; } = new Diploma();
+
     public CreateStudentDiplomaModel(UniversityServices universityServices)
     {
         _universityServices = universityServices;
@@ -29,17 +31,9 @@ public class CreateStudentDiplomaModel : PageModel
 
     public async Task OnPostAsync()
     {
-        var diploma = new Diploma
-        {
-            FirstName = "Damien",
-            Email = "dd@d.ch",
-            LastName = "Bod",
-            DateOfBirth = "1998-05-23",
-            DiplomaTitle = "Swiss SSI FH",
-            DiplomaSpecialisation = "governance",
-            DiplomaIssuedDate = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-        };
+        Diploma.DiplomaIssuedDate = DateTime.UtcNow
+            .ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-        await _universityServices.CreateStudentDiploma(diploma);
+        await _universityServices.CreateStudentDiploma(Diploma);
     }
 }
