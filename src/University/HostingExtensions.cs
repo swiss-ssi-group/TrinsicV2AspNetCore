@@ -1,7 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.Logging;
 using Serilog;
+using University.Service;
 
 namespace University;
 
@@ -13,6 +16,9 @@ internal static class HostingExtensions
         var services = builder.Services;
         var configuration = builder.Configuration;
         _env = builder.Environment;
+
+        services.AddDbContext<UniversityDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.Configure<TrinsicOptions>(options => 
             configuration.Bind(TrinsicOptions.Trinsic, options));
@@ -35,7 +41,7 @@ internal static class HostingExtensions
         {
             options.FallbackPolicy = options.DefaultPolicy;
         });
-        
+
         services.AddRazorPages()
             .AddMicrosoftIdentityUI();
 
