@@ -9,6 +9,24 @@
 <p>The creates a new issuer VC template</p>
 <p>Registers the University Wallet to issue VCs using the template</p>
 
-<form method="post">
-    <button type="submit" class="btn btn-primary col-sm-10">Create new Diploma</button>
+
+<form method="post" class="col-lg-6 col-md-9 col-sm-12">
+
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name *</label>
+        <input type="text" class="form-control" required asp-for="@Model.NewDiploma.Name" id="Name" aria-describedby="nameHelp">
+        <div id="nameHelp" class="form-text">Name of the diploma</div>
+
+        <label for="Title" class="form-label">Title *</label>
+        <input type="text" class="form-control" required asp-for="@Model.NewDiploma.Title" id="Title" aria-describedby="titleHelp">
+        <div id="titleHelp" class="form-text">Title of the diploma</div>
+
+        <label for="Description" class="form-label">Description *</label>
+        <input type="text" class="form-control" required asp-for="@Model.NewDiploma.Description" id="Description" aria-describedby="descriptionHelp">
+        <div id="descriptionHelp" class="form-text">Diploma description</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary col-12">Create new Diploma template</button>
 </form>
+
+

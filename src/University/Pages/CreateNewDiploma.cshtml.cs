@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Trinsic.Services.VerifiableCredentials.Templates.V1;
+using University.Models;
 
 namespace University.Pages;
 
@@ -10,6 +12,9 @@ namespace University.Pages;
 public class CreateNewDiplomaModel : PageModel
 {
     private readonly UniversityServices _universityServices;
+
+    [BindProperty]
+    public NewDiploma NewDiploma { get; set; } = new NewDiploma();
 
     public CreateNewDiplomaModel(UniversityServices universityServices)
     {
@@ -24,9 +29,9 @@ public class CreateNewDiplomaModel : PageModel
     {
         CreateCredentialTemplateRequest createRequest = new()
         {
-            Name = "Diploma Credential for Swiss Self Sovereign Identity SSI",
-            Title = "Diploma SSI degree",
-            Description = "A University Diploma Credential for Swiss Self Sovereign Identity SSI",
+            Name = NewDiploma.Name,
+            Title = NewDiploma.Title,
+            Description = NewDiploma.Description,
             AllowAdditionalFields = false,
             Fields =
             {
