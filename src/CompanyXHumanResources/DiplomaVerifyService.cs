@@ -21,6 +21,12 @@ public class DiplomaVerifyService
         new SelectListItem { Text ="University SSI Schweiz FH Basel", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"}
     };
 
+    public readonly List<SelectListItem> TrustedCredentials = new List<SelectListItem>
+    {
+        new SelectListItem { Text ="University SSI Schweiz SSI FH", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"},
+        new SelectListItem { Text ="University SSI Schweiz FH Basel", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"}
+    };
+
     public DiplomaVerifyService(TrinsicService trinsicService, IConfiguration configuration)
     {
         _trinsicService = trinsicService;
