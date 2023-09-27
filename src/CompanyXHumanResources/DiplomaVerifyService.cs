@@ -39,6 +39,7 @@ public class DiplomaVerifyService
         var jsonObject = JsonNode.Parse(studentProof)!;
         var credentialSchemaId = jsonObject["credentialSchema"]!["id"];
 
+        // We need to check if the SchemeUri is once we trust
         if(universityCredentialScheme != credentialSchemaId!.ToString())
         {
             return (null, false);
