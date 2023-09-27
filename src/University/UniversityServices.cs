@@ -76,6 +76,12 @@ public class UniversityServices
         });
     }
 
+    public async Task CreateStudentDiploma(Diploma diploma)
+    {
+        await _context.AddAsync(diploma);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<CreateCredentialOfferResponse?> IssuerStudentDiplomaCredentialOffer(Diploma diploma, int universityDiplomaTemplateId)
     {
         var templateId = await GetUniversityDiplomaTemplateId(universityDiplomaTemplateId);
@@ -124,4 +130,6 @@ public class UniversityServices
 
         return createWalletResponse;
     }
+
+  
 }

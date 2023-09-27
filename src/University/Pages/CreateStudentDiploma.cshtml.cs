@@ -7,13 +7,7 @@ using University.Service;
 
 namespace University.Pages;
 
-/// <summary>
-/// Create Credential Template for a new universaty diploma
-/// https://docs.trinsic.id/reference/services/template-service/
-/// https://docs.trinsic.id/reference/services/credential-service/
-/// https://docs.trinsic.id/guide/issuance/
-/// </summary>
-public class IssueStudentDiplomaModel : PageModel
+public class CreateStudentDiplomaModel : PageModel
 {
     private readonly UniversityServices _universityServices;
 
@@ -23,9 +17,7 @@ public class IssueStudentDiplomaModel : PageModel
     [BindProperty]
     public string DiplomaTemplateId { get; set; } = string.Empty;
 
-    public string CredentialOfferUrl { get; set; } = string.Empty;
-
-    public IssueStudentDiplomaModel(UniversityServices universityServices)
+    public CreateStudentDiplomaModel(UniversityServices universityServices)
     {
         _universityServices = universityServices;
     }
@@ -33,18 +25,14 @@ public class IssueStudentDiplomaModel : PageModel
     public async Task OnGetAsync()
     {
         DiplomaTemplates = await _universityServices.GetUniversityDiplomaTemplates();
-        var user = User!.Identity!.Name;
-        //Diplomas = await _universityServices.GetUniversityDiplomas(user);
     }
 
     public async Task OnPostAsync()
     {
-        // TODO get data from a database using ID from authenticated student
-        //var diploma = await _universityServices.GetUniversityDiploma(DiplomaId);
-        
         var diploma = new Diploma
         {
             FirstName = "Damien",
+            Email = "dd@d.ch",
             LastName = "Bod",
             DateOfBirth = "1998-05-23",
             DiplomaTitle = "Swiss SSI FH",
@@ -52,10 +40,6 @@ public class IssueStudentDiplomaModel : PageModel
             DiplomaIssuedDate = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
         };
 
-        var templateId = Convert.ToInt32(DiplomaTemplateId);
-
-        var response = await _universityServices.IssuerStudentDiplomaCredentialOffer(diploma, templateId);
-
-        CredentialOfferUrl = response!.ShareUrl;
+        await _universityServices.CreateStudentDiploma(diploma);
     }
 }
