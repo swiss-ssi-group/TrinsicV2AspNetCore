@@ -131,5 +131,23 @@ public class UniversityServices
         return createWalletResponse;
     }
 
-  
+    public async Task<List<SelectListItem>> GetUniversityDiplomas(string? user)
+    {
+        var items = await _context.Diplomas.Where(w => w.Email == user)
+            .Select(s => new SelectListItem
+            {
+                Text = s.DiplomaTitle,
+                Value = s.DiplomaTemplateId!
+            }).ToListAsync();
+
+        return items;
+    }
+
+    public async Task<Diploma> GetUniversityDiploma(string diplomaTemplateId)
+    {
+        var item = await _context.Diplomas
+            .FirstAsync(w => w.DiplomaTemplateId == diplomaTemplateId);
+
+        return item;
+    }
 }

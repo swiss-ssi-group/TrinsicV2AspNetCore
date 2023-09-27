@@ -18,10 +18,10 @@ public class IssueStudentDiplomaModel : PageModel
     private readonly UniversityServices _universityServices;
 
     [BindProperty]
-    public List<SelectListItem>? DiplomaTemplates { get; set; }
+    public string DiplomaTemplateId { get; set; } = string.Empty;
 
     [BindProperty]
-    public string DiplomaTemplateId { get; set; } = string.Empty;
+    public List<SelectListItem> Diplomas { get; set; } = new List<SelectListItem>();
 
     public string CredentialOfferUrl { get; set; } = string.Empty;
 
@@ -32,29 +32,18 @@ public class IssueStudentDiplomaModel : PageModel
 
     public async Task OnGetAsync()
     {
-        DiplomaTemplates = await _universityServices.GetUniversityDiplomaTemplates();
         var user = User!.Identity!.Name;
-        //Diplomas = await _universityServices.GetUniversityDiplomas(user);
+        Diplomas = await _universityServices.GetUniversityDiplomas(user);
     }
 
     public async Task OnPostAsync()
     {
-        // TODO get data from a database using ID from authenticated student
-        //var diploma = await _universityServices.GetUniversityDiploma(DiplomaId);
-        
-        var diploma = new Diploma
-        {
-            FirstName = "Damien",
-            LastName = "Bod",
-            DateOfBirth = "1998-05-23",
-            DiplomaTitle = "Swiss SSI FH",
-            DiplomaSpecialisation = "governance",
-            DiplomaIssuedDate = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
-        };
+        var diploma = await _universityServices.GetUniversityDiploma(DiplomaTemplateId);
 
-        var templateId = Convert.ToInt32(DiplomaTemplateId);
+        var tid = Convert.ToInt32(DiplomaTemplateId, CultureInfo.InvariantCulture);
 
-        var response = await _universityServices.IssuerStudentDiplomaCredentialOffer(diploma, templateId);
+        var response = await _universityServices
+            .IssuerStudentDiplomaCredentialOffer(diploma, tid);
 
         CredentialOfferUrl = response!.ShareUrl;
     }
