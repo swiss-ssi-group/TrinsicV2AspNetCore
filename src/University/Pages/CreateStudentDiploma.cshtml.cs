@@ -14,9 +14,6 @@ public class CreateStudentDiplomaModel : PageModel
     public List<SelectListItem>? DiplomaTemplates { get; set; }
 
     [BindProperty]
-    public string DiplomaTemplateId { get; set; } = string.Empty;
-
-    [BindProperty]
     public Diploma Diploma { get; set; } = new Diploma();
 
     public CreateStudentDiplomaModel(UniversityServices universityServices)

@@ -13,4 +13,5 @@ public class Diploma
     public string DiplomaTitle { get; set; } = string.Empty;
     public string DiplomaSpecialisation { get; set; } = string.Empty;
     public string? DiplomaIssuedDate { get; set; }
+    public string? DiplomaTemplateId { get; set; }
 }
