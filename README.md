@@ -65,6 +65,13 @@ var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(reques
 var authToken = createWalletResponse.AuthToken;
 ```
 
+## Database
+
+```
+Add-Migration "init"
+
+Update-Database
+
 ## Links
 
 https://dashboard.trinsic.id/ecosystem

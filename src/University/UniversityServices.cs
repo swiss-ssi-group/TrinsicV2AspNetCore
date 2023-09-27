@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using Trinsic;
 using Trinsic.Services.TrustRegistry.V1;
 using Trinsic.Services.UniversalWallet.V1;
@@ -12,18 +13,23 @@ public class UniversityServices
 {
     private readonly TrinsicService _trinsicService;
     private readonly IConfiguration _configuration;
-    private readonly string _universityTemplateId = "urn:template:peaceful-booth-zrpufxfp6l3c:diploma-credential-for-swiss-self-sovereign-identity-ssi";
+    private readonly UniversityDbContext _context;
 
-    public UniversityServices(TrinsicService trinsicService, IConfiguration configuration)
+    public UniversityServices(TrinsicService trinsicService,
+        IConfiguration configuration,
+        UniversityDbContext context)
     {
         _trinsicService = trinsicService;
         _configuration = configuration;
+        _context = context;
     }
 
-    public string GetUniversityDiplomaTemplateId()
+    public async Task<string?> GetUniversityDiplomaTemplateId(int id)
     {
-        // Use a DB here
-        return _universityTemplateId;
+        var template = await _context.DiplomaTemplates
+            .FirstOrDefaultAsync(t => t.Id == id);
+
+        return template!.TemplateId;
     }
 
     public async Task<GetCredentialTemplateResponse>  GetUniversityDiplomaTemplate(string universityTemplateId)
@@ -57,10 +63,11 @@ public class UniversityServices
         });
     }
 
-    public async Task<CreateCredentialOfferResponse?> IssuerStudentDiplomaCredentialOffer(Diploma diploma)
+    public async Task<CreateCredentialOfferResponse?> IssuerStudentDiplomaCredentialOffer(Diploma diploma, int universityDiplomaTemplateId)
     {
-        var templateResponse = await GetUniversityDiplomaTemplate(
-            GetUniversityDiplomaTemplateId());
+        var templateId = await GetUniversityDiplomaTemplateId(universityDiplomaTemplateId);
+        // get the template from the id-tech solution
+        var templateResponse = await GetUniversityDiplomaTemplate(templateId!);
 
         // Auth token from University issuer wallet
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
@@ -81,9 +88,16 @@ public class UniversityServices
         // Auth token from University issuer wallet
         _trinsicService.Options.AuthToken = _configuration["TrinsicOptions:IssuerAuthToken"];
 
-        // TODO save id in a database for later usage
         var template = await _trinsicService.Template
             .CreateAsync(diplomaTemplate);
+
+        await _context.AddAsync(new DiplomaTemplate
+        {
+            SchemaUri = template.Data.SchemaUri,
+            Name = template.Data.Name,
+            TemplateId = template.Data.Id
+        });
+        await _context.SaveChangesAsync();
 
         return template;
     }

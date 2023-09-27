@@ -40,7 +40,8 @@ public class IssueStudentDiplomaModel : PageModel
             DiplomaIssuedDate = DateTime.UtcNow.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
         };
 
-        var response = await _universityServices.IssuerStudentDiplomaCredentialOffer(diploma);
+        // TODO get templateId from DB
+        var response = await _universityServices.IssuerStudentDiplomaCredentialOffer(diploma, 1);
 
         CredentialOfferUrl = response!.ShareUrl;
     }
