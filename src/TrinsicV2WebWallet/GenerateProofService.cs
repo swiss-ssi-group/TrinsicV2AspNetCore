@@ -12,19 +12,14 @@ public class GenerateProofService
     private readonly TrinsicService _trinsicService;
     private readonly IConfiguration _configuration;
 
-    /// <summary>
-    /// This would be some public list of university diploma schemes
-    /// Don't think this will work because not every uni will used the same SSI, id-tech systems, standards
-    /// </summary>
-    public readonly List<SelectListItem> Universities = new List<SelectListItem>
-    {
-        new SelectListItem { Text ="University SSI Schweiz", Value= "peaceful-booth-zrpufxfp6l3c"}
-    };
+    public List<SelectListItem> Universities = new();
 
     public GenerateProofService(TrinsicService trinsicService, IConfiguration configuration)
     {
         _trinsicService = trinsicService;
         _configuration = configuration;
+
+        Universities = _configuration.GetSection("Universities")!.Get<List<SelectListItem>>()!;
     }
 
     public async Task<List<SelectListItem>> GetItemsInWallet(string userAuthToken)
