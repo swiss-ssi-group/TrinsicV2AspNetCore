@@ -62,22 +62,21 @@ public class GenerateProofService
         // Auth token from user 
         _trinsicService.Options.AuthToken = userAuthToken;
 
-        var createProofResponse = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
-        {
-            ItemId = credentialItemId,
-        });
-
-        //var selectiveProof = await _trinsicService.Credential.CreateProofAsync(new()
+        //var createProofResponse = await _trinsicService.Credential.CreateProofAsync(new CreateProofRequest
         //{
-        //    DocumentJson = credentialJson.DocumentJson,
-        //    RevealTemplate = new()
-        //    {
-        //        // The other field, not disclosed, is "age"
-        //        TemplateAttributes = { "firstName", "lastName" }
-        //    }
+        //    ItemId = credentialItemId,
         //});
 
-        return createProofResponse;
+        var selectiveProof = await _trinsicService.Credential.CreateProofAsync(new()
+        {
+            ItemId = credentialItemId,
+            RevealTemplate = new()
+            {
+                TemplateAttributes = { "firstName", "lastName", "dateOfBirth", "diplomaTitle" }
+            }
+        });
+
+        return selectiveProof;
     }
 
     public AuthenticateInitResponse AuthenticateInit(string userId, string universityEcosystemId)

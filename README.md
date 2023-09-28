@@ -11,7 +11,7 @@ As a student, I want to authenticate using my university account (OpenID Connect
 As an HR employee, I want to verify the job candidate has a degree from this university. The HR employee needs verification but does not require to see the data.
 
 - The sample creates University diplomas as BBS+ verifiable credentials.
-- The credentials will be issued using OIDC to a candidate mobile wallet.
+- The credentials will be issued using OIDC (If possible) to a candidate mobile wallet.
 - The Issuer uses a trust registry so that the verifier can validate that the VC is authentic.
 - The verifier will use BBS+ selective disclosure to validate a diploma.
 - The university application requires an admin zone and a student zone.
