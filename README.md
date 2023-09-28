@@ -22,48 +22,50 @@ Validate that the flow can be implemented using this trinsic.id ID-Tech platform
 
 Provide a .NET Core example
 
-In a second phase, the trusted registry will be used and implemented.
+In a second phase, the trusted registry will be used and implemented with an improved verification process
 
-## Notes
 
-- Does OIDC even work with Trinsic?
-- Wallets from other providers do not work
-- Trinsic wallet does not work
-- Platform documentation do not match the APIs (options.AuthToken = configuration["TrinsicOptions:ApiKey"];)
-- No clear docs how to implement this basic flow using OIDC
-- Weak user authentication
+## Debugging, Setup
 
-## Create Issuer Wallet
+### TrinsicV2WebWallet
 
-```
-var request = new CreateWalletRequest
-{
-    EcosystemId = "--your eco system id--",
-    Description = "wallet to issue university diplomas"
-};
-
-var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(request);
-
-var test = createWalletResponse.AuthToken;
+```json
 ```
 
-or this:
+### CompanyXHumanResources
 
-```
-var request = new CreateWalletRequest
-{
-    EcosystemId = "--your eco system id--",
-    Description = "wallet to issue university diplomas",
-    Identity = new CreateWalletRequest.Types.ExternalIdentity
-    {
-        Identity = "--email of identity--",
-        Provider = Trinsic.Services.Provider.V1.IdentityProvider.Email
-    }
-};
-var createWalletResponse = await _trinsicService.Wallet.CreateWalletAsync(request);
+The verifier credentials
 
-var authToken = createWalletResponse.AuthToken;
+```json
+"TrinsicCompanyXHumanResourcesOptions": {
+    "Ecosystem": "--in-youe-secrets--",
+    "ApiKey": "--in-youe-secrets--"
+},
 ```
+
+### Univeristy
+
+The University application requires the trinsic uni credentials, the data for the issuer wallet and a SQL database to store the data.
+
+An Azure App registration with a web setup is used to setup the application authentication. (OpenID Connect confidential client code flow with PKCE)
+
+```json
+"TrinsicOptions": {
+    "Ecosystem": "--in-your-user-secrets--",
+    "ApiKey": "--in-your-user-secrets--"
+    "IssuerAuthToken": "--in-your-user-secrets--",
+    "IssuerWalletId": "--in-your-user-secrets--",
+},
+"AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "Domain": "damienbodsharepoint.onmicrosoft.com",
+    "TenantId": "5698af84-5720-4ff0-bdc3-9d9195314244",
+    "ClientId": "3f1d78ea-06d6-4d77-909f-4d398388e900",
+    "CallbackPath": "/signin-oidc"
+    //"ClientSecret": "--in-your-secrets--"
+},
+```
+
 
 ## Database
 
