@@ -25,7 +25,7 @@ public class VerifyStudentDiplomaModel : PageModel
 
     public void OnGet()
     {
-        Universities = _diplomaVerifyService.TrustedUniversities;
+        Universities = _diplomaVerifyService.TrustedCredentials;
     }
 
     public async Task OnPostAsync()

@@ -16,15 +16,13 @@ public class DiplomaVerifyService
     /// </summary>
     public readonly List<SelectListItem> TrustedUniversities = new List<SelectListItem>
     {
-        // todo switch to uni and not diploma vc
-        new SelectListItem { Text ="University SSI Schweiz SSI FH", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"},
-        new SelectListItem { Text ="University SSI Schweiz FH Basel", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"}
+        new SelectListItem { Text ="University SSI Schweiz SSI FH", Value="did:web:peaceful-booth-zrpufxfp6l3c.connect.trinsic.cloud:zV9t25XybyBV7qEB1v6u9Bb"}
     };
 
     public readonly List<SelectListItem> TrustedCredentials = new List<SelectListItem>
     {
-        new SelectListItem { Text ="University SSI Schweiz SSI FH", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"},
-        new SelectListItem { Text ="University SSI Schweiz FH Basel", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"}
+        new SelectListItem { Text ="University SSI Schweiz SSI", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"},
+        new SelectListItem { Text ="University FH Basel, Schweiz", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"}
     };
 
     public DiplomaVerifyService(TrinsicService trinsicService, IConfiguration configuration)
