@@ -66,13 +66,13 @@ An Azure App registration with a web setup is used to setup the application auth
 },
 ```
 
-
 ## Database
 
 ```
 Add-Migration "init"
 
 Update-Database
+```
 
 ## Links
 
