@@ -30,6 +30,12 @@ In a second phase, the trusted registry will be used and implemented with an imp
 ### TrinsicV2WebWallet
 
 ```json
+"Universities": [
+    {
+        "Text": "University SSI Schweiz",
+        "Value": "peaceful-booth-zrpufxfp6l3c"
+    }
+],
 ```
 
 ### CompanyXHumanResources
@@ -41,6 +47,22 @@ The verifier credentials
     "Ecosystem": "--in-youe-secrets--",
     "ApiKey": "--in-youe-secrets--"
 },
+"TrustedUniversities": [
+    {
+        "Text": "University SSI Schweiz SSI",
+        "Value": "did:web:peaceful-booth-zrpufxfp6l3c.connect.trinsic.cloud:zV9t25XybyBV7qEB1v6u9Bb"
+    }
+],
+"TrustedCredentials": [
+    {
+        "Text": "University SSI Schweiz SSI Diploma",
+        "Value": "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"
+    },
+    {
+        "Text": "FH Basel UX Engineer Diploma",
+        "Value": "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"
+    }
+],
 ```
 
 ### Univeristy
