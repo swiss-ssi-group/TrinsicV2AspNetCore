@@ -16,13 +16,13 @@ public class DiplomaVerifyService
     /// </summary>
     public readonly List<SelectListItem> TrustedUniversities = new List<SelectListItem>
     {
-        new SelectListItem { Text ="University SSI Schweiz SSI FH", Value="did:web:peaceful-booth-zrpufxfp6l3c.connect.trinsic.cloud:zV9t25XybyBV7qEB1v6u9Bb"}
+        new SelectListItem { Text ="University SSI Schweiz SSI", Value="did:web:peaceful-booth-zrpufxfp6l3c.connect.trinsic.cloud:zV9t25XybyBV7qEB1v6u9Bb"}
     };
 
     public readonly List<SelectListItem> TrustedCredentials = new List<SelectListItem>
     {
-        new SelectListItem { Text ="University SSI Schweiz SSI", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"},
-        new SelectListItem { Text ="University FH Basel, Schweiz", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"}
+        new SelectListItem { Text ="University SSI Schweiz SSI Diploma", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/diploma-credential-for-swiss-self-sovereign-identity-ssi"},
+        new SelectListItem { Text ="FH Basel UX Engineer Diploma", Value= "https://schema.trinsic.cloud/peaceful-booth-zrpufxfp6l3c/fh-basel-ux-engineer"}
     };
 
     public DiplomaVerifyService(TrinsicService trinsicService, IConfiguration configuration)
@@ -31,7 +31,7 @@ public class DiplomaVerifyService
         _configuration = configuration;
     }
 
-    public async Task<(VerifyProofResponse? Proof, bool IsValid)> Verify(string studentProof, string universityCredentialScheme)
+    public async Task<(VerifyProofResponse? Proof, bool IsValid)> Verify(string studentProof, string universityIssuer)
     {
         // Verifiers auth token
         // Auth token from trinsic.id root API KEY provider
@@ -44,12 +44,19 @@ public class DiplomaVerifyService
 
         var jsonObject = JsonNode.Parse(studentProof)!;
         var credentialSchemaId = jsonObject["credentialSchema"]!["id"];
+        var issuer = jsonObject["issuer"];
 
-        // We need to check if the SchemeUri is once we trust
-        if(universityCredentialScheme != credentialSchemaId!.ToString())
+        // check issuer
+        if (universityIssuer != issuer!.ToString())
         {
             return (null, false);
         }
+
+        // Do we need to check if the SchemeUri is once we trust
+        //if (universityCredentialScheme != credentialSchemaId!.ToString())
+        //{
+        //    return (null, false);
+        //}
 
         return (verifyProofResponse, true);
     }

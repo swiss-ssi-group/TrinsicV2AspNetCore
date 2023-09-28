@@ -50,7 +50,6 @@ public class GenerateProofService
                     break;
                 }
             }
-            //var issuer = jsonObject["data"]!["issuer"];
 
             results.Add(new SelectListItem(vc, id!.ToString()));
         }
