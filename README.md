@@ -25,7 +25,7 @@ Provide a .NET Core example
 In a second phase, the trusted registry will be used and implemented with an improved verification process
 
 
-## Debugging, Setup
+## Debugging and setup
 
 Setup the trinsic Ecosystem by creating an account and following the instructions of the documentation.
 
