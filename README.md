@@ -58,9 +58,9 @@ An Azure App registration with a web setup is used to setup the application auth
 },
 "AzureAd": {
     "Instance": "https://login.microsoftonline.com/",
-    "Domain": "damienbodsharepoint.onmicrosoft.com",
-    "TenantId": "5698af84-5720-4ff0-bdc3-9d9195314244",
-    "ClientId": "3f1d78ea-06d6-4d77-909f-4d398388e900",
+    "Domain": "--domain-name-azuread-tenant--",
+    "TenantId": "--your-azuread-tenant-id--",
+    "ClientId": "--client_id-azure-app-registration--",
     "CallbackPath": "/signin-oidc"
     //"ClientSecret": "--in-your-secrets--"
 },
