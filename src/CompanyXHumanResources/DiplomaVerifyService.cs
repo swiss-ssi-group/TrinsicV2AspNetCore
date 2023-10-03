@@ -1,6 +1,5 @@
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
 using Trinsic;
 using Trinsic.Services.VerifiableCredentials.V1;
 
