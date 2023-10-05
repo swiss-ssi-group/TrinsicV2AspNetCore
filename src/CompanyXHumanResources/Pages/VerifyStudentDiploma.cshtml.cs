@@ -30,7 +30,7 @@ public class VerifyStudentDiplomaModel : PageModel
 
     public async Task OnPostAsync()
     {
-        var result = await _diplomaVerifyService.Verify(DiplomaProof, University);
-        UniversityCredentialIsValid = result.IsValid;
+        var (_, IsValid) = await _diplomaVerifyService.Verify(DiplomaProof, University);
+        UniversityCredentialIsValid = IsValid;
     }
 }
