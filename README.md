@@ -27,7 +27,7 @@ In a second phase, the trusted registry will be used and implemented with an imp
 
 ## Debugging and setup
 
-Setup the trinsic Ecosystem by creating an account and following the instructions of the documentation.
+Setup the trinsic.id Ecosystem by creating an account and following the instructions of the documentation.
 
 ### TrinsicV2WebWallet
 
@@ -69,7 +69,7 @@ The verifier credentials
 
 ### Univeristy
 
-The University application requires the trinsic uni credentials, the data for the issuer wallet and a SQL database to store the data.
+The university application requires the trinsic uni credentials, the data for the issuer wallet and a SQL database to store the data.
 
 An Azure App registration with a web setup is used to setup the application authentication. (OpenID Connect confidential client code flow with PKCE)
 
