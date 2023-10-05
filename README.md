@@ -107,3 +107,11 @@ https://github.com/trinsic-id/sdk
 https://docs.trinsic.id/dotnet/
 
 https://www.youtube.com/watch?v=yKeIx3iE1WM
+
+https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html
+
+https://openid.net/specs/openid-4-verifiable-presentations-1_0.html
+
+https://openid.net/specs/openid-connect-self-issued-v2-1_0.html
+
+https://datatracker.ietf.org/doc/draft-ietf-oauth-selective-disclosure-jwt/
