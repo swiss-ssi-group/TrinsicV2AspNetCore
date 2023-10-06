@@ -2,6 +2,8 @@
 
 [![.NET](https://github.com/swiss-ssi-group/TrinsicV2AspNetCore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/swiss-ssi-group/TrinsicV2AspNetCore/actions/workflows/dotnet.yml)
 
+[Issue and verify BBS+ verifiable credentials using ASP.NET Core and trinsic.id](https://damienbod.com)
+
 ## Use Case
 
 As a university administrator, I want to create BBS+ verifiable credentials templates for university diplomas.
