@@ -2,7 +2,7 @@
 
 [![.NET](https://github.com/swiss-ssi-group/TrinsicV2AspNetCore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/swiss-ssi-group/TrinsicV2AspNetCore/actions/workflows/dotnet.yml)
 
-[Issue and verify BBS+ verifiable credentials using ASP.NET Core and trinsic.id]([https://damienbod.com](https://damienbod.com/2023/10/09/issue-and-verify-bbs-verifiable-credentials-using-asp-net-core-and-trinsic-id/))
+[Issue and verify BBS+ verifiable credentials using ASP.NET Core and trinsic.id]([https://damienbod.com](https://damienbod.com/2023/10/09/issue-and-verify-bbs-verifiable-credentials-using-asp-net-core-and-trinsic-id/)
 
 ## Use Case
 
