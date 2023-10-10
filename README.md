@@ -29,7 +29,7 @@ In a second phase, the trusted registry will be used and implemented with an imp
 
 ## Debugging and setup
 
-Setup the trinsic.id Ecosystem by creating an account and following the instructions of the documentation.
+Setup the trinsic.id Ecosystem by creating an account and following the instructions in the documentation.
 
 ### TrinsicV2WebWallet
 
