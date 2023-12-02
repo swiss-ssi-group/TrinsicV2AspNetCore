@@ -4,6 +4,10 @@
 
 [Issue and verify BBS+ verifiable credentials using ASP.NET Core and trinsic.id](https://damienbod.com/2023/10/09/issue-and-verify-bbs-verifiable-credentials-using-asp-net-core-and-trinsic-id/)
 
+## History
+
+- 2023-12-02 Updated .NET 8
+
 ## Use Case
 
 As a university administrator, I want to create BBS+ verifiable credentials templates for university diplomas.
